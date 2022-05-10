@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e96356a-2dee-402e-8d03-a1decfed6b04" name="Changes" comment="">
+    <list default="true" id="0e96356a-2dee-402e-8d03-a1decfed6b04" name="Changes" comment="first real commit&#10;now reads from hardcoded CSV file and converts to athletes and disciplines&#10;&#10;Signed-off-by: shplack &lt;shplack@shplack.tech&gt;">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_xerial_sqlite_jdbc_3_36_0_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SCIA.iml" beforeDir="false" afterPath="$PROJECT_DIR$/SCIA.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Athlete/Athlete.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CSV/CSV.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Discipline/Discipline.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Discipline/Jumping.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Discipline/Running.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Discipline/Throwing.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,6 +29,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Record" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -27,19 +46,31 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
   <component name="ProjectId" id="27kDR2EBqYgKXDmyHXEjqAYltqb" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/UML" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "settings.editor.selected.configurable": "MavenSettings"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlite"
+    ]
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -77,6 +108,8 @@
       <workItem from="1650519172803" duration="55000" />
       <workItem from="1650519266346" duration="1018000" />
       <workItem from="1650520305908" duration="385000" />
+      <workItem from="1652167820770" duration="2080000" />
+      <workItem from="1652169930977" duration="5079000" />
     </task>
     <task id="LOCAL-00001" summary="first real commit&#10;now reads from hardcoded CSV file and converts to athletes and disciplines&#10;&#10;Signed-off-by: shplack &lt;shplack@shplack.tech&gt;">
       <created>1650519785220</created>
