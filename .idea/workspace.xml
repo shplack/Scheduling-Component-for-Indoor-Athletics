@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e96356a-2dee-402e-8d03-a1decfed6b04" name="Changes" comment="reconstruction">
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/Database/SQLiteDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Discipline/Discipline.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Discipline/Discipline.java" afterDir="false" />
+    <list default="true" id="0e96356a-2dee-402e-8d03-a1decfed6b04" name="Changes" comment="first real commit&#10;now reads from hardcoded CSV file and converts to athletes and disciplines&#10;&#10;Signed-off-by: shplack &lt;shplack@shplack.tech&gt;">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Discipline/DisciplineStation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Discipline/DisciplineStation.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -56,8 +56,9 @@
   "keyToString": {
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "MavenSettings"
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   },
   "keyToStringList": {
     "DatabaseDriversLRU": [
@@ -138,8 +139,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first real commit&#10;now reads from hardcoded CSV file and converts to athletes and disciplines" />
-    <MESSAGE value="first real commit&#10;now reads from hardcoded CSV file and converts to athletes and disciplines&#10;&#10;Signed-off-by: shplack &lt;shplack@shplack.tech&gt;" />
     <MESSAGE value="reconstruction" />
-    <option name="LAST_COMMIT_MESSAGE" value="reconstruction" />
+    <MESSAGE value="first real commit&#10;now reads from hardcoded CSV file and converts to athletes and disciplines&#10;&#10;Signed-off-by: shplack &lt;shplack@shplack.tech&gt;" />
+    <option name="LAST_COMMIT_MESSAGE" value="first real commit&#10;now reads from hardcoded CSV file and converts to athletes and disciplines&#10;&#10;Signed-off-by: shplack &lt;shplack@shplack.tech&gt;" />
   </component>
 </project>
