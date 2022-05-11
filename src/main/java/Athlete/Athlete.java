@@ -30,4 +30,8 @@ public record Athlete(int id, String club, String name, String surname, Gender g
                 Integer.parseInt(properties.get(Property.AGE))
         );
     }
+
+    public Athlete deepCopy() {
+        return new Athlete(id, club, name, surname, gender, age);
+    }
 }

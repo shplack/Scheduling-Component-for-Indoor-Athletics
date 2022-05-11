@@ -10,7 +10,7 @@ import java.util.Map;
 
 class SCIA_RecordReader {
 
-    private static float getMilliseconds(String time) {
+    private static float stringTimeToSeconds(String time) {
         float result ;
         if (time.contains(":")) {
             String[] parts = time.split(":");
@@ -48,7 +48,7 @@ class SCIA_RecordReader {
                 record = Float.parseFloat(columns.get(i));
 
             else {
-                record = getMilliseconds(columns.get(i));
+                record = stringTimeToSeconds(columns.get(i));
 
             }
 
