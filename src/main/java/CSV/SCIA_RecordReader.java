@@ -8,6 +8,21 @@ import java.util.List;
 import java.util.Map;
 
 class SCIA_RecordReader {
+
+    private static float getMilliseconds(String time) {
+        float result ;
+        if (time.contains(":")) {
+            String[] parts = time.split(":");
+            float minutes = Float.parseFloat(parts[0]);
+            float seconds = Float.parseFloat(parts[1]);
+            result = minutes * 60 + seconds;
+        }
+        else {
+            result = Float.parseFloat(time);
+        }
+        return result;
+    }
+
     static Athlete getAthlete(int id, List<String> columns) {
         Map<Athlete.Property, String> properties = new HashMap<>();
 
@@ -24,17 +39,20 @@ class SCIA_RecordReader {
         for (int i = 0; i < columns.size(); i++) {
             Discipline discipline = Discipline.values()[i];
 
-            float record = -1.0f;
+            float record;
             if (i >= Discipline.LONG_JUMP.ordinal()) // distance in meters
                 record = Float.parseFloat(columns.get(i));
-            /*
-            else // time in milliseconds
-                record = getMilliseconds(columns.get(i)); // TODO: rezas magic
-            */
+
+            else {
+                record = getMilliseconds(columns.get(i));
+
+            }
+
 
             discipline_records.put(discipline, record);
         }
 
         return discipline_records;
     }
+
 }
