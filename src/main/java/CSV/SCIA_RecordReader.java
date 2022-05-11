@@ -1,6 +1,7 @@
 package CSV;
 
 import Athlete.Athlete;
+import Athlete.Athlete.Property;
 import Discipline.Discipline;
 
 import java.util.HashMap;
@@ -24,11 +25,11 @@ class SCIA_RecordReader {
     }
 
     static Athlete getAthlete(int id, List<String> columns) {
-        Map<Athlete.Property, String> properties = new HashMap<>();
+        Map<Property, String> properties = new HashMap<>();
 
-        properties.put(Athlete.Property.ID, String.valueOf(id));
+        properties.put(Property.ID, String.valueOf(id));
         for (int i = 0; i < columns.size(); i++)
-            properties.put(Athlete.Property.values()[i], columns.get(i));
+                properties.put(Property.values()[i], columns.get(i));
 
         return new Athlete(properties);
     }
@@ -37,6 +38,9 @@ class SCIA_RecordReader {
         Map<Discipline, Float> discipline_records = new HashMap<>();
 
         for (int i = 0; i < columns.size(); i++) {
+            if (columns.get(i).equals(""))
+                continue;
+
             Discipline discipline = Discipline.values()[i];
 
             float record;
