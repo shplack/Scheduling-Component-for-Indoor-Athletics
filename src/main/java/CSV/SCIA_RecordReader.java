@@ -52,7 +52,6 @@ class SCIA_RecordReader {
 
             }
 
-
             discipline_records.put(discipline, record);
         }
 
