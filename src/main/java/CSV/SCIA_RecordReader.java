@@ -2,7 +2,7 @@ package CSV;
 
 import Athlete.Athlete;
 import Athlete.Athlete.Property;
-import Discipline.Discipline;
+import Discipline.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,8 +34,8 @@ class SCIA_RecordReader {
         return new Athlete(properties);
     }
 
-    static Map<Discipline, Float> getDisciplineRecords(List<String> columns) {
-        Map<Discipline, Float> discipline_records = new HashMap<>();
+    static DisciplineRecords getDisciplineRecords(List<String> columns) {
+        DisciplineRecords discipline_records = new DisciplineRecords();
 
         for (int i = 0; i < columns.size(); i++) {
             if (columns.get(i).equals(""))
@@ -52,7 +52,7 @@ class SCIA_RecordReader {
 
             }
 
-            discipline_records.put(discipline, record);
+            discipline_records.addRecord(discipline, record);
         }
 
         return discipline_records;

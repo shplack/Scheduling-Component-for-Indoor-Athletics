@@ -20,9 +20,7 @@ public class TestCSV {
             for (AthleteRecord athleteRecord : csv.getRecords()) {
                 Athlete athlete = athleteRecord.getAthlete();
                 System.out.println(athlete.toString());
-                for (Map.Entry<Discipline, Float> disciplineRecord : athleteRecord.getDisciplineRecords().entrySet()) {
-                    System.out.println("\t" + disciplineRecord.getKey().toString() + ": " + disciplineRecord.getValue());
-                }
+                System.out.println(athleteRecord.getDisciplineRecords().toString());
                 System.out.println();
             }
         } catch (IOException e) {
