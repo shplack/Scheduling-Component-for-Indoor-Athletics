@@ -1,11 +1,11 @@
 package Schedule;
 
-public class TimeSlots {
+public class TimeSlot {
 
     private static final int START_TIME = 10;
     private static final int MAX_NUM_SLOTS_ONE_DAY = 120;
 
-    public static String getTime(int time_slot) {
+    public static String toString(int time_slot) {
 
         time_slot %= MAX_NUM_SLOTS_ONE_DAY;
 

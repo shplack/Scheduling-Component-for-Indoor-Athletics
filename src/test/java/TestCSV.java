@@ -1,10 +1,8 @@
 import Athlete.Athlete;
 import Athlete.AthleteRecord;
-import CSV.SCIA_CSV;
-import Discipline.Discipline;
+import CSV.CSV;
 
 import java.io.IOException;
-import java.util.Map;
 
 public class TestCSV {
 
@@ -16,7 +14,7 @@ public class TestCSV {
         }
 
         try {
-            SCIA_CSV csv = new SCIA_CSV(args[0]);
+            CSV csv = new CSV(args[0]);
             for (AthleteRecord athleteRecord : csv.getRecords()) {
                 Athlete athlete = athleteRecord.getAthlete();
                 System.out.println(athlete.toString());
