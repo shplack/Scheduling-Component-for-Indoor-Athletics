@@ -11,6 +11,10 @@ public class DisciplineRecords extends HashMap<Discipline, ArrayList<Float>> {
         super();
     }
 
+    public DisciplineRecords(DisciplineRecords disciplineRecords) {
+        super(disciplineRecords);
+    }
+
     public ArrayList<Float> getRecords(Discipline discipline) {
         return get(discipline);
     }
