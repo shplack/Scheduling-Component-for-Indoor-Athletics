@@ -18,6 +18,10 @@ public record Athlete(int id, String club, String name, String surname, Gender g
         Objects.requireNonNull(name);
         Objects.requireNonNull(surname);
         Objects.requireNonNull(gender);
+
+        club = club.trim();
+        name = name.trim();
+        surname = surname.trim();
     }
 
     public Athlete(Map<Property, String> properties) {
