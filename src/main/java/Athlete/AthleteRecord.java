@@ -6,12 +6,6 @@ import Pair.Pair;
 import java.util.ArrayList;
 
 public class AthleteRecord extends Pair<Athlete, DisciplineRecords>  {
-    /**
-     * Creates a new pair
-     *
-     * @param key   The key for this pair
-     * @param value The value to use for this pair
-     */
     public AthleteRecord(Athlete key, DisciplineRecords value) {
         super(key, value);
     }
@@ -26,5 +20,9 @@ public class AthleteRecord extends Pair<Athlete, DisciplineRecords>  {
 
     public ArrayList<Float> getRecords(Discipline discipline) {
         return getDisciplineRecords().getRecords(discipline);
+    }
+
+    public void addRecord(Discipline discipline, float record) {
+        getDisciplineRecords().addRecord(discipline, record);
     }
 }
