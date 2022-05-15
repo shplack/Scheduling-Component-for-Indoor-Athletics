@@ -5,6 +5,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
+import static Discipline.Disciplines.Discipline;
+
 public class DisciplineRecords extends HashMap<Discipline, ArrayList<Float>> {
 
     public DisciplineRecords() {

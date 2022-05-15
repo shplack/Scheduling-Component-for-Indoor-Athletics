@@ -1,15 +1,15 @@
 package Competitions;
 
-import Athlete.Athlete;
+import Athlete.AthleteRecord;
 import Athlete.Gender;
-import Discipline.Discipline;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static Competitions.AgeGroups.AgeGroup;
+import static Discipline.Disciplines.Discipline;
 
-public record CompetitionGroup(Discipline discipline, AgeGroup ageGroup, Gender gender, List<Athlete> athleteList) {
+public record CompetitionGroup(Discipline discipline, AgeGroup ageGroup, Gender gender, List<AthleteRecord> athleteRecordsList) {
 
     public CompetitionGroup(Discipline discipline, AgeGroup ageGroup, Gender gender) {
         this(
@@ -20,8 +20,8 @@ public record CompetitionGroup(Discipline discipline, AgeGroup ageGroup, Gender 
         );
     }
 
-    public void addAthlete(Athlete athlete) {
-        this.athleteList().add(athlete);
+    public void addAthleteRecord(AthleteRecord athleteRecord) {
+        this.athleteRecordsList().add(athleteRecord);
     }
 
     public String toString() {
@@ -32,11 +32,11 @@ public record CompetitionGroup(Discipline discipline, AgeGroup ageGroup, Gender 
                 "\n  └─ Athletes: "
         );
 
-        for (int i = 0; i < athleteList.size(); i++) {
+        for (int i = 0; i < athleteRecordsList.size(); i++) {
             stringBuilder.append("\n      ")
-                    .append(i < athleteList.size() - 1 ? "├" : "└")
+                    .append(i < athleteRecordsList.size() - 1 ? "├" : "└")
                     .append("─ ")
-                    .append(athleteList.get(i).toString());
+                    .append(athleteRecordsList.get(i).toString());
         }
 
         return stringBuilder.toString();
