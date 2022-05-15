@@ -1,11 +1,12 @@
 package Athlete;
 
-import Discipline.Discipline;
 import Discipline.DisciplineRecords;
 import Pair.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static Discipline.Disciplines.Discipline;
 
 public class AthleteRecord extends Pair<Athlete, DisciplineRecords>  {
     public AthleteRecord(Athlete key, DisciplineRecords value) {

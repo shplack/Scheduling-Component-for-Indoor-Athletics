@@ -1,12 +1,15 @@
 package CSV;
 
-import Athlete.*;
-import java.io.IOException;
-import Discipline.*;
+import Athlete.Athlete;
+import Athlete.AthleteRecord;
+import Athlete.Gender;
+import Discipline.DisciplineRecords;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static Discipline.Discipline.*;
+import java.io.IOException;
+
+import static Discipline.Disciplines.Discipline.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 

@@ -2,11 +2,13 @@ package CSV;
 
 import Athlete.Athlete;
 import Athlete.Athlete.Property;
-import Discipline.*;
+import Discipline.DisciplineRecords;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static Discipline.Disciplines.Discipline;
 
 class RecordReader {
 

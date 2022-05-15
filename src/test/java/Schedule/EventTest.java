@@ -2,13 +2,15 @@ package Schedule;
 
 import Athlete.Athlete;
 import Athlete.Gender;
-import Discipline.Discipline;
-import Discipline.Station;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static Competitions.Trials.Trial;
+import static Discipline.Disciplines.Discipline;
+import static Discipline.Stations.Station;
 
 class EventTest {
 
@@ -28,7 +30,8 @@ class EventTest {
                         29
                 ))),
                 Station.HIGH_JUMP_I,
-                Discipline.HIGH_JUMP
+                Discipline.HIGH_JUMP,
+                Trial.TRIAL_I
         );
 
 

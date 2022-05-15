@@ -2,12 +2,12 @@ package Competitions;
 
 import Athlete.AthleteRecord;
 import Athlete.Gender;
-import Discipline.Discipline;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static Competitions.AgeGroups.AgeGroup;
+import static Discipline.Disciplines.Discipline;
 
 public class CompetitionGroupsMaker {
 
@@ -35,7 +35,7 @@ public class CompetitionGroupsMaker {
                         continue;
 
                     if (competitionGroup.gender() == Gender.UNISEX || competitionGroup.gender() == athleteRecord.getAthlete().gender())
-                        competitionGroup.addAthlete(athleteRecord.getAthlete());
+                        competitionGroup.addAthleteRecord(athleteRecord);
                 }
             }
         }
@@ -43,7 +43,7 @@ public class CompetitionGroupsMaker {
         List<CompetitionGroup> emptyGroups = new ArrayList<>();
 
         for (CompetitionGroup competitionGroup : competitionGroups) {
-            if (competitionGroup.athleteList().isEmpty())
+            if (competitionGroup.athleteRecordsList().isEmpty())
                 emptyGroups.add(competitionGroup);
         }
 
