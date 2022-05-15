@@ -1,14 +1,14 @@
 package Discipline;
 
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import static Discipline.Discipline.*;
+import static Discipline.Discipline.LONG_JUMP;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DisciplineRecordsTest {
 
