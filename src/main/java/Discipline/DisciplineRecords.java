@@ -65,15 +65,20 @@ public class DisciplineRecords extends HashMap<Discipline, ArrayList<Float>> {
         get(discipline).add(record);
     }
 
-    public String toString() {
+    public String toString(String prefix) {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (Discipline discipline : getDisciplines()) {
-            stringBuilder.append("\t")
-                    .append(discipline.toString())
-                    .append(": ")
-                    .append(get(discipline).toString())
-                    .append("\n");
+            stringBuilder.append(prefix).append(discipline.toString()).append(": ");
+            List<Float> records = getRecords(discipline);
+            for (int i = 0; i < records.size(); i++) {
+                stringBuilder.append(prefix).append(prefix);
+                if (i < records.size() - 1)
+                    stringBuilder.append(records.get(i)).append(", ");
+                else
+                    stringBuilder.append(records.get(i));
+            }
+            stringBuilder.append(prefix).append("\n");
         }
 
         return stringBuilder.toString();
