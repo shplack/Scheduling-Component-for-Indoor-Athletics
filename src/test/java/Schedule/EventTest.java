@@ -16,8 +16,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class EventTest {
 
     Event event;
-    Event event_two;
-
+    Event event_2;
+    Event event_three;
     @BeforeEach
     void setUp() {
         event = new Event(
@@ -34,6 +34,19 @@ class EventTest {
                 Discipline.HIGH_JUMP
         );
 
+        event_2 = new Event(
+                new int[] {4,5,6},
+                (ArrayList<Athlete>) Arrays.asList(new Athlete(
+                        2,
+                        "ÖÖÖ",
+                        "Victor",
+                        "Jonsson",
+                        Gender.MALE,
+                        30
+                )),
+                Station.LONG_TRIPLE_I,
+                Discipline.TRIPLE_JUMP
+        );
 
     }
 
