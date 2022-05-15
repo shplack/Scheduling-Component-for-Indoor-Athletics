@@ -2,13 +2,13 @@ package CSV;
 
 import Athlete.*;
 import java.io.IOException;
-import java.util.List;
 import Discipline.*;
-import static Discipline.Discipline.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static Discipline.Discipline.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 class CSVTest {
 
