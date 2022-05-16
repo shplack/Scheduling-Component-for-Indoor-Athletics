@@ -2,6 +2,8 @@ package Schedule;
 
 import Athlete.Athlete;
 import Athlete.Gender;
+import Competitions.AgeGroups;
+import Schedule.Event.Event;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -31,7 +33,8 @@ class EventTest {
                 ))),
                 Station.HIGH_JUMP_I,
                 Discipline.HIGH_JUMP,
-                Trial.TRIAL_I
+                Trial.TRIAL_I,
+                AgeGroups.AgeGroup.EIGHT_AND_UNDER
         );
 
 

@@ -3,7 +3,7 @@ package Schedule;
 public class TimeSlot {
 
     private static final int START_TIME = 10;
-    private static final int MAX_NUM_SLOTS_ONE_DAY = 120;
+    private static final int MAX_NUM_SLOTS_ONE_DAY = 108;
     public static final int INCREMENT = 5;
 
     public static String toString(int time_slot) {

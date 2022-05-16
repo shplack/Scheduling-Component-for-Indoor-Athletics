@@ -1,25 +1,28 @@
-package Schedule;
+package Schedule.Event;
 
 import Athlete.Athlete;
+import Schedule.TimeSlot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static Competitions.AgeGroups.AgeGroup;
 import static Competitions.Trials.Trial;
 import static Discipline.Disciplines.Discipline;
 import static Discipline.Stations.Station;
 
-public record Event(int[] time_slots, ArrayList<Athlete> athletes, Station station, Discipline discipline, Trial trial) {
+public record Event(int[] time_slots, ArrayList<Athlete> athletes, Station station, Discipline discipline, Trial trial, AgeGroup age_group) {
     public enum Property {
         TIME_SLOTS,
         ATHLETES,
         STATION,
         DISCIPLINE,
-        TRIAL
+        TRIAL,
+        AGE_GROUP
     }
 
     public Event deepCopy() {
-        return new Event(Arrays.copyOf(time_slots, time_slots.length), new ArrayList<>(athletes), station, discipline, trial);
+        return new Event(Arrays.copyOf(time_slots, time_slots.length), new ArrayList<>(athletes), station, discipline, trial, age_group);
     }
 
     public boolean equals(Event event) {
@@ -46,6 +49,9 @@ public record Event(int[] time_slots, ArrayList<Athlete> athletes, Station stati
         if (!discipline.equals(event.discipline))
             return false;
 
+        if (!age_group.equals(event.age_group))
+            return false;
+
         return trial.equals(event.trial);
     }
 
@@ -54,11 +60,12 @@ public record Event(int[] time_slots, ArrayList<Athlete> athletes, Station stati
             return "";
         }
         StringBuilder stringBuilder = new StringBuilder(
-                TimeSlot.toString(time_slots[0]) + " " +
-                TimeSlot.toString(time_slots[time_slots.length - 1] + 1) + " " +
-                discipline.toString() + "\t\t" +
-                trial.toString() + "  \t" +
-                station.toString() + "\t"
+                TimeSlot.toString(time_slots[0]) + "\t" +
+                TimeSlot.toString(time_slots[time_slots.length - 1] + 1) + "\t" +
+                discipline + "\t" +
+                trial + "  \t" +
+                station + "\t" +
+                age_group + "\t\t"
         );
 
         for (Athlete athlete : athletes) {
@@ -71,4 +78,6 @@ public record Event(int[] time_slots, ArrayList<Athlete> athletes, Station stati
 
         return stringBuilder.toString();
     }
+
+
 }

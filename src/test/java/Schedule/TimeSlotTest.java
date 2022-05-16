@@ -9,10 +9,15 @@ class TimeSlotTest {
 
     @Test
     void testToString() {
-        assertEquals(TimeSlot.toString(50), "14:10");
-        assertEquals(TimeSlot.toString(51), "14:15");
-        assertNotEquals(TimeSlot.toString(52), "14:15");
-        assertEquals(TimeSlot.toString(170), "14:10");
-        assertEquals(TimeSlot.toString(500), "11:40");
+        assertEquals(TimeSlot.toString(1), "10:00");
+        assertEquals(TimeSlot.toString(13), "11:00");
+        assertEquals(TimeSlot.toString(25), "12:00");
+        assertEquals(TimeSlot.toString(37), "13:00");
+        assertEquals(TimeSlot.toString(49), "14:00");
+        assertEquals(TimeSlot.toString(50), "14:05");
+        assertEquals(TimeSlot.toString(51), "14:10");
+        assertNotEquals(TimeSlot.toString(52), "14:10");
+        assertEquals(TimeSlot.toString(108), "18:55");
+        assertEquals(TimeSlot.toString(109), "10:00");
     }
 }
