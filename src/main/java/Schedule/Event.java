@@ -48,4 +48,27 @@ public record Event(int[] time_slots, ArrayList<Athlete> athletes, Station stati
 
         return trial.equals(event.trial);
     }
+
+    public String toString() {
+        if (time_slots.length == 0) {
+            return "";
+        }
+        StringBuilder stringBuilder = new StringBuilder(
+                TimeSlot.toString(time_slots[0]) + " " +
+                TimeSlot.toString(time_slots[time_slots.length - 1] + 1) + " " +
+                discipline.toString() + "\t\t" +
+                trial.toString() + "  \t" +
+                station.toString() + "\t"
+        );
+
+        for (Athlete athlete : athletes) {
+            stringBuilder
+                    .append(athlete.name())
+                    .append(" ")
+                    .append(athlete.surname())
+                    .append(", ");
+        }
+
+        return stringBuilder.toString();
+    }
 }

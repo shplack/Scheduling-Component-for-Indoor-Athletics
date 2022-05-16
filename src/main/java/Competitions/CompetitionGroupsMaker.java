@@ -11,8 +11,8 @@ import static Discipline.Disciplines.Discipline;
 
 public class CompetitionGroupsMaker {
 
-    public static List<CompetitionGroup> makeCompetitionGroups(List<AthleteRecord> athleteRecords) {
-        List<CompetitionGroup> competitionGroups = new ArrayList<>();
+    public static ArrayList<CompetitionGroup> makeCompetitionGroups(List<AthleteRecord> athleteRecords) {
+        ArrayList<CompetitionGroup> competitionGroups = new ArrayList<>();
 
         for (Discipline discipline : Discipline.values()) {
             for (AgeGroup ageGroup : AgeGroup.values()) {

@@ -7,7 +7,7 @@ public class TimeSlot {
     public static final int INCREMENT = 5;
 
     public static String toString(int time_slot) {
-
+        time_slot--; // TODO: should not have to decrement, please fix this
         time_slot %= MAX_NUM_SLOTS_ONE_DAY;
 
         int time_slots_in_minutes = time_slot * INCREMENT;
