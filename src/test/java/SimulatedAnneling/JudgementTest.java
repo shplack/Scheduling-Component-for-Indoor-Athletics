@@ -100,8 +100,6 @@ class JudgementTest {
                             }
             }
             }
-
-
         System.out.println(conflict);
 
 
