@@ -1,11 +1,10 @@
-package Schedule;
+package SimulatedAnneling;
 
 import Athlete.*;
 import Discipline.Discipline;
 import Discipline.Station;
+import Schedule.Event;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +12,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class EventTest {
+class JudgementTest {
 
     Event event;
     Event event_2;
@@ -21,7 +20,7 @@ class EventTest {
     @BeforeEach
     void setUp() {
         event = new Event(
-                new int[] {1,2,3},
+                new int[]{1, 2, 3},
                 (ArrayList<Athlete>) Arrays.asList(new Athlete(
                         1,
                         "ÖSK",
@@ -35,7 +34,7 @@ class EventTest {
         );
 
         event_2 = new Event(
-                new int[] {4,5,6},
+                new int[]{4, 5, 6},
                 (ArrayList<Athlete>) Arrays.asList(new Athlete(
                         2,
                         "ÖÖÖ",
@@ -49,7 +48,7 @@ class EventTest {
         );
 
         event_3 = new Event(
-                new int[] {2},
+                new int[]{2},
                 (ArrayList<Athlete>) Arrays.asList(new Athlete(
                         1,
                         "ÖSK",
@@ -62,15 +61,7 @@ class EventTest {
                 Discipline.POLE_VAULT
         );
 
-
-
+        ArrayList<Event> eventLista  = new ArrayList<Event>(List.of(event,event_2,event_3));
     }
 
-    @Test
-    void deepCopy() {
-    }
-
-    @Test
-    void testEquals() {
-    }
 }
