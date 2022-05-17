@@ -1,15 +1,13 @@
 package Athlete;
 
-import Discipline.Discipline;
 import Discipline.DisciplineRecords;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static Discipline.Disciplines.Discipline;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AthleteRecordTest  {
     AthleteRecord athleteRecord;
@@ -34,11 +32,11 @@ class AthleteRecordTest  {
     @Test
     void getDisciplineRecords() {
         DisciplineRecords copy = new DisciplineRecords(athleteRecord.getDisciplineRecords());
-        assertTrue(athleteRecord.getDisciplineRecords().equals(copy));
+        assertEquals(athleteRecord.getDisciplineRecords(), copy);
     }
 
     @Test
     void getRecords() {
-        assertTrue(athleteRecord.getRecords(Discipline.LONG_JUMP).equals(List.of(2.34f)));
+        assertEquals(athleteRecord.getRecords(Discipline.LONG_JUMP), List.of(2.34f));
     }
 }

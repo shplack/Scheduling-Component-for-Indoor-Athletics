@@ -4,12 +4,13 @@ public class TimeSlot {
 
     private static final int START_TIME = 10;
     private static final int MAX_NUM_SLOTS_ONE_DAY = 120;
+    public static final int INCREMENT = 5;
 
     public static String toString(int time_slot) {
-
+        time_slot--; // TODO: should not have to decrement, please fix this
         time_slot %= MAX_NUM_SLOTS_ONE_DAY;
 
-        int time_slots_in_minutes = time_slot * 5;
+        int time_slots_in_minutes = time_slot * INCREMENT;
         int hours = time_slots_in_minutes / 60 + START_TIME;
         int minutes = time_slots_in_minutes % 60;
 

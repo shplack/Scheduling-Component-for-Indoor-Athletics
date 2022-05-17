@@ -3,6 +3,9 @@ package Discipline;
 import java.util.ArrayList;
 import java.util.List;
 
+import static Discipline.Disciplines.Discipline;
+import static Discipline.Stations.Station;
+
 public class DisciplineStation {
 
     public static ArrayList<Discipline> getDisciplines(Station station) {
@@ -23,20 +26,14 @@ public class DisciplineStation {
             case SHOT_PUT_I, SHOT_PUT_II -> new ArrayList<>(List.of(Discipline.SHOT_PUT));
         };
     }
-    public static ArrayList<Station> getStation(Discipline discipline) {
+    public static Station[] getStation(Discipline discipline) {
         return switch(discipline) {
-
-            case SPRINT60M,HURDLE60M -> new ArrayList<>(List.of(Station.SPRINT_TRACK));
-
-            case SPRINT200M, MIDDLE800M, MIDDLE1500M, LONG3000M -> new ArrayList<>(List.of(Station.RUNNING_TRACK));
-
-            case LONG_JUMP, TRIPLE_JUMP -> new ArrayList<>(List.of(Station.LONG_TRIPLE_I, Station.LONG_TRIPLE_II));
-
-            case HIGH_JUMP -> new ArrayList<>(List.of(Station.HIGH_JUMP_I,Station.HIGH_JUMP_II));
-
-            case POLE_VAULT -> new ArrayList<>(List.of(Station.POLE_VAULT));
-
-            case SHOT_PUT -> new ArrayList<>(List.of(Station.SHOT_PUT_I, Station.SHOT_PUT_II));
+            case SPRINT60M,HURDLE60M -> new Station[]{Station.SPRINT_TRACK};
+            case SPRINT200M, MIDDLE800M, MIDDLE1500M, LONG3000M -> new Station[]{Station.RUNNING_TRACK};
+            case LONG_JUMP, TRIPLE_JUMP -> new Station[]{Station.LONG_TRIPLE_I, Station.LONG_TRIPLE_II};
+            case HIGH_JUMP -> new Station[]{Station.HIGH_JUMP_I,Station.HIGH_JUMP_II};
+            case POLE_VAULT -> new Station[]{Station.POLE_VAULT};
+            case SHOT_PUT -> new Station[]{Station.SHOT_PUT_I, Station.SHOT_PUT_II};
         };
 
     }

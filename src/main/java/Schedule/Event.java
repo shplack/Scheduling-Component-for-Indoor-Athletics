@@ -1,22 +1,25 @@
 package Schedule;
 
 import Athlete.Athlete;
-import Discipline.Discipline;
-import Discipline.Station;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public record Event(int[] time_slots, ArrayList<Athlete> athletes, Station station, Discipline discipline) {
+import static Competitions.Trials.Trial;
+import static Discipline.Disciplines.Discipline;
+import static Discipline.Stations.Station;
+
+public record Event(int[] time_slots, ArrayList<Athlete> athletes, Station station, Discipline discipline, Trial trial) {
     public enum Property {
         TIME_SLOTS,
         ATHLETES,
         STATION,
-        DISCIPLINE
+        DISCIPLINE,
+        TRIAL
     }
 
     public Event deepCopy() {
-        return new Event(Arrays.copyOf(time_slots, time_slots.length), new ArrayList<>(athletes), station, discipline);
+        return new Event(Arrays.copyOf(time_slots, time_slots.length), new ArrayList<>(athletes), station, discipline, trial);
     }
 
     public boolean equals(Event event) {
@@ -37,10 +40,35 @@ public record Event(int[] time_slots, ArrayList<Athlete> athletes, Station stati
             }
         }
 
-        if (!station.equals(event.station)) {
+        if (!station.equals(event.station))
             return false;
+
+        if (!discipline.equals(event.discipline))
+            return false;
+
+        return trial.equals(event.trial);
+    }
+
+    public String toString() {
+        if (time_slots.length == 0) {
+            return "";
+        }
+        StringBuilder stringBuilder = new StringBuilder(
+                TimeSlot.toString(time_slots[0]) + " " +
+                TimeSlot.toString(time_slots[time_slots.length - 1] + 1) + " " +
+                discipline.toString() + "\t\t" +
+                trial.toString() + "  \t" +
+                station.toString() + "\t"
+        );
+
+        for (Athlete athlete : athletes) {
+            stringBuilder
+                    .append(athlete.name())
+                    .append(" ")
+                    .append(athlete.surname())
+                    .append(", ");
         }
 
-        return discipline.equals(event.discipline);
+        return stringBuilder.toString();
     }
 }

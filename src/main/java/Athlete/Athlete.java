@@ -38,4 +38,12 @@ public record Athlete(int id, String club, String name, String surname, Gender g
     public Athlete deepCopy() {
         return new Athlete(id, club, name, surname, gender, age);
     }
+
+    public String toString() {
+        return "ID: " + id +
+               ", Club: " + club +
+               ", Name: " + name + " " + surname +
+               ", Gender: " + gender.toString() +
+               ", Age: " + age;
+    }
 }
