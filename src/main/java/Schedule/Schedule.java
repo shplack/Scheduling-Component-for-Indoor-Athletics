@@ -10,7 +10,9 @@ public record Schedule(List<Event> eventList) {
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder
+                .append("Day:\t")
                 .append("Start:\t")
+                .append("Day:\t")
                 .append("End:\t")
                 .append("Discipline:\t")
                 .append("Trial:\t\t\t")
