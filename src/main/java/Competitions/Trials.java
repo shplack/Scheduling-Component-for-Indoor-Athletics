@@ -1,6 +1,7 @@
 package Competitions;
 
 import static Discipline.Disciplines.Discipline;
+import static Discipline.Stations.Station;
 
 public class Trials {
 
@@ -20,6 +21,17 @@ public class Trials {
                 case SEMI_FINAL -> 2;
                 case FINAL -> 1;
                 default -> 0;
+            };
+        }
+
+
+
+
+        public boolean canHazTrial(Station station, int numAthletes) {
+            return switch (this) {
+                case QUARTER_FINAL -> numAthletes > station.getAthleteLimit() * this.getNumGroups();
+                case SEMI_FINAL -> numAthletes > station.getAthleteLimit();
+                default -> numAthletes > 0;
             };
         }
     }

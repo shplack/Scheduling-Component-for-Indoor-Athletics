@@ -4,12 +4,11 @@ import Athlete.AthleteRecord;
 import Athlete.Gender;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static Competitions.AgeGroups.AgeGroup;
 import static Discipline.Disciplines.Discipline;
 
-public record CompetitionGroup(Discipline discipline, AgeGroup age_group, Gender gender, List<AthleteRecord> athleteRecordsList) {
+public record CompetitionGroup(Discipline discipline, AgeGroup age_group, Gender gender, ArrayList<AthleteRecord> athleteRecordsList) {
 
     public CompetitionGroup(Discipline discipline, AgeGroup age_group, Gender gender) {
         this(
