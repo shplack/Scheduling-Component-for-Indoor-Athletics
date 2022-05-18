@@ -34,7 +34,7 @@ class CSVTest {
 
     @BeforeEach
     void setUp() throws IOException {
-        String csv_file_path = System.getProperty("user.dir") + "/src/main/resources/registration-list.csv";
+        String csv_file_path = "resources/registration-list.csv";
         CSV csv = new CSV(csv_file_path);
 
         athleteRecord = csv.getRecords().get(0);

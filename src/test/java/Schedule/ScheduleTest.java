@@ -18,7 +18,7 @@ class ScheduleTest {
 
     @BeforeAll
     static void setUpAll() throws IOException {
-        CSV csv = new CSV("src/main/resources/registration-list.csv");
+        CSV csv = new CSV("resources/registration-list.csv");
         ArrayList<AthleteRecord> athlete_records = csv.getRecords();
         ArrayList<CompetitionGroup> competition_groups = CompetitionGroupsMaker.makeCompetitionGroups(athlete_records);
         schedule = ScheduleMaker.makeSchedule(competition_groups);

@@ -2,8 +2,8 @@
   <configuration default="false" name="TestCSV" type="Application" factoryName="Application">
     <option name="ALTERNATIVE_JRE_PATH" value="openjdk-17" />
     <option name="MAIN_CLASS_NAME" value="TestCSV" />
-    <module name="SCIA" />
-    <option name="PROGRAM_PARAMETERS" value="src/main/resources/registration-list.csv" />
+    <module name="test" />
+    <option name="PROGRAM_PARAMETERS" value="resources/registration-list.csv" />
     <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
     <method v="2">
       <option name="Make" enabled="true" />

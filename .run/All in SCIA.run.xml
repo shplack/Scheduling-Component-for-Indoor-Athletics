@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="All in SCIA" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
-    <module name="SCIA" />
+  <configuration default="false" name="All in test" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+    <module name="test" />
     <option name="PACKAGE_NAME" value="" />
     <option name="MAIN_CLASS_NAME" value="" />
     <option name="METHOD_NAME" value="" />

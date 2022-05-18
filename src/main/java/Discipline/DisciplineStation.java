@@ -24,6 +24,8 @@ public class DisciplineStation {
             case POLE_VAULT -> new ArrayList<>(List.of(Discipline.POLE_VAULT));
 
             case SHOT_PUT_I, SHOT_PUT_II -> new ArrayList<>(List.of(Discipline.SHOT_PUT));
+
+            default -> null;
         };
     }
 }
