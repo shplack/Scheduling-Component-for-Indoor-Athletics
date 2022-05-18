@@ -3,7 +3,7 @@ package com.SCIA.Competitions;
 import com.SCIA.Discipline.Disciplines;
 import com.SCIA.Discipline.Stations;
 
-import static com.SCIA.Competitions.Trials.Trial.Priority.*;
+import static com.SCIA.Competitions.Trials.Trial.Order.*;
 
 public class Trials {
 
@@ -19,21 +19,21 @@ public class Trials {
 
         AWARD;
 
-        public enum Priority {
-            LOWER,
+        public enum Order {
+            HIGHER,
             EQUAL,
-            HIGHER
+            LOWER
         }
 
         private boolean between(Trial lower_ordinal, Trial higher_ordinal) {
             return this.ordinal() >= lower_ordinal.ordinal() && this.ordinal() <= higher_ordinal.ordinal();
         }
 
-        public Priority comparePriority(Trial trial) {
+        public Order compareOrder(Trial trial) {
             if ((this.between(QUALIFYING, FINAL) && trial.between(QUALIFYING, FINAL)) ||
-                    (this.between(TRIAL_I, TRIAL_IV) && trial.between(TRIAL_I, TRIAL_IV)))
+                    (this.between(TRIAL_I, TRIAL_IV) && trial.between(TRIAL_I, TRIAL_IV)) ||
+                    (this == AWARD || trial == AWARD))
                 return this.ordinal() > trial.ordinal() ?  HIGHER : this.ordinal() == trial.ordinal() ? EQUAL : LOWER;
-
             return EQUAL;
         }
 
