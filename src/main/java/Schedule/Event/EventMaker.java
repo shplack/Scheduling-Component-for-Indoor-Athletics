@@ -6,6 +6,7 @@ import Competitions.CompetitionGroup;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import static Competitions.AgeGroups.AgeGroup;
 import static Competitions.Trials.Trial;
@@ -23,11 +24,7 @@ public class EventMaker {
         if (num_groups <= 0)
             num_groups = 1;
 
-        if (trial == Trial.FINAL && ageGroup == AgeGroup.SEVENTEEN_TO_EIGHTEEN)
-            System.out.println("");
-
-        ArrayList<Event> test = new ArrayList<>(Collections.nCopies(num_groups, new Event(null, athletes, station, discipline, trial, ageGroup, competitionGroup.gender())));
-        return test;
+        return new ArrayList<>(Collections.nCopies(num_groups, new Event(null, athletes, station, discipline, trial, ageGroup, competitionGroup.gender())));
     }
 
     private static ArrayList<Event> makeQualifyingEvent(CompetitionGroup competitionGroup, Trial trial, Station station) {
@@ -48,15 +45,54 @@ public class EventMaker {
             athleteGroups.get(groupNum).add(athleteRecords.get(i).getAthlete());
         }
 
-        athleteGroups.forEach(group -> {
-            events.add(new Event(null, group, station, discipline, trial, ageGroup, competitionGroup.gender()));
-        });
+        athleteGroups.forEach(group -> events.add(new Event(null, group, station, discipline, trial, ageGroup, competitionGroup.gender())));
+
+        return events;
+    }
+
+    private static ArrayList<Event> makeIncrementalEvent(CompetitionGroup competitionGroup, Trial trial, Station station) {
+        ArrayList<Event> events = new ArrayList<>();
+
+        if (trial == Trial.TRIAL_I) {
+            competitionGroup.athleteRecordsList().stream().map((ar) -> ar.getAthlete()).forEach((athlete) ->
+                    events.add(new Event(
+                            null, new ArrayList<>(List.of(athlete)), station, competitionGroup.discipline(),
+                            trial, competitionGroup.age_group(), competitionGroup.gender()
+                    ))
+            );
+        }
+
+        return events;
+    }
+
+    private static ArrayList<Event> make2TrialsEvent(CompetitionGroup competitionGroup, Trial trial, Station station) {
+        Discipline discipline = competitionGroup.discipline();
+        if (discipline.isIncremental())
+            return makeIncrementalEvent(competitionGroup, trial, station);
+
+
+        return new ArrayList<>();
+    }
+
+    private static ArrayList<Event> makeNonIncrementalEvents(CompetitionGroup competitionGroup, Trial trial, Station station) {
+        ArrayList<Event> events = new ArrayList<>();
+
+        competitionGroup.athleteRecordsList().stream().map((ar) -> ar.getAthlete()).forEach( (athlete) ->
+                events.add(new Event(
+                        null, new ArrayList<>(List.of(athlete)), station, competitionGroup.discipline(),
+                        trial, competitionGroup.age_group(), competitionGroup.gender()
+                ))
+        );
 
         return events;
     }
 
     private static ArrayList<Event> makeTrialEvent(CompetitionGroup competitionGroup, Trial trial, Station station ) {
-        return new ArrayList<>();
+        Discipline discipline = competitionGroup.discipline();
+        if (discipline.isIncremental())
+            return makeIncrementalEvent(competitionGroup, trial, station);
+
+        return makeNonIncrementalEvents(competitionGroup, trial, station);
     }
 
     public static ArrayList<Event> makeEvents(CompetitionGroup competitionGroup) {

@@ -45,5 +45,9 @@ public class Disciplines {
                 default -> false;
             };
         }
+
+        public boolean isIncremental() {
+            return this == HIGH_JUMP || this == POLE_VAULT;
+        }
     }
 }

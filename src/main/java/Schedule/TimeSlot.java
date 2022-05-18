@@ -1,10 +1,16 @@
 package Schedule;
 
+import java.util.List;
+
 public class TimeSlot {
 
     private static final int START_TIME = 10;
     private static final int MAX_NUM_SLOTS_ONE_DAY = 108;
     public static final int INCREMENT = 5;
+
+    public static List<Integer> test(List<Integer> testers) {
+        return testers;
+    }
 
 
     public static String toString(int time_slot) {
@@ -14,12 +20,9 @@ public class TimeSlot {
         time_slot--;
         time_slot %= MAX_NUM_SLOTS_ONE_DAY;
 
-
         int time_slots_in_minutes = time_slot * INCREMENT;
         int hours = time_slots_in_minutes / 60 + START_TIME;
         int minutes = time_slots_in_minutes % 60;
-
-
 
         String str_minutes = String.valueOf(minutes);
         if (minutes < 10)
