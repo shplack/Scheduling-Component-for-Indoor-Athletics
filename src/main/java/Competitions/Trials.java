@@ -14,7 +14,9 @@ public class Trials {
         TRIAL_I,
         TRIAL_II,
         TRIAL_III,
-        TRIAL_IV;
+        TRIAL_IV,
+
+        AWARD;
 
         public enum Priority {
             LOWER,

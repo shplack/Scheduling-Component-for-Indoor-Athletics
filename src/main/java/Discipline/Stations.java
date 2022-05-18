@@ -12,7 +12,9 @@ public class Stations {
         HIGH_JUMP_II,
         POLE_VAULT,
         SHOT_PUT_I,
-        SHOT_PUT_II;
+        SHOT_PUT_II,
+
+        AWARDS_STAGE;
 
         public int getAthleteLimit() {
             return switch(this) {

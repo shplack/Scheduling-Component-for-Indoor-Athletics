@@ -65,15 +65,6 @@ public class EventMaker {
         return events;
     }
 
-    private static ArrayList<Event> make2TrialsEvent(CompetitionGroup competitionGroup, Trial trial, Station station) {
-        Discipline discipline = competitionGroup.discipline();
-        if (discipline.isIncremental())
-            return makeIncrementalEvent(competitionGroup, trial, station);
-
-
-        return new ArrayList<>();
-    }
-
     private static ArrayList<Event> makeNonIncrementalEvents(CompetitionGroup competitionGroup, Trial trial, Station station) {
         ArrayList<Event> events = new ArrayList<>();
 
@@ -114,5 +105,23 @@ public class EventMaker {
         }
 
         return events;
+    }
+
+    public static ArrayList<Event> awardsCeremony (List<CompetitionGroup> competitionGroups) {
+        ArrayList<Event> awardsEvents = new ArrayList<>(competitionGroups.size());
+
+        competitionGroups.forEach(competitionGroup ->
+            awardsEvents.add(new Event(
+                new ArrayList<>(),
+                new ArrayList<>(competitionGroup.athleteRecordsList().stream().map(ar -> ar.getAthlete()).toList()),
+                Station.AWARDS_STAGE,
+                competitionGroup.discipline(),
+                Trial.AWARD,
+                competitionGroup.age_group(),
+                competitionGroup.gender()
+            ))
+        );
+
+        return awardsEvents;
     }
 }

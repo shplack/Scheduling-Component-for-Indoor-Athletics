@@ -24,6 +24,9 @@ public class ScheduleMaker {
             eventList.addAll(events);
 
         }
+
+        eventList.addAll(EventMaker.awardsCeremony(competitionGroups));
+
         return new Schedule(eventList);
     }
 }
