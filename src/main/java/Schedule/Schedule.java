@@ -1,5 +1,7 @@
 package Schedule;
 
+import Schedule.Event.Event;
+
 import java.util.List;
 
 public record Schedule(List<Event> eventList) {
@@ -8,11 +10,14 @@ public record Schedule(List<Event> eventList) {
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder
+                .append("Day:\t")
                 .append("Start:\t")
+                .append("Day:\t")
                 .append("End:\t")
                 .append("Discipline:\t")
                 .append("Trial:\t\t\t")
                 .append("Station:\t\t")
+                .append("Age group:\t\t")
                 .append("Athletes:\n");
 
         for (Event event : eventList)

@@ -31,7 +31,7 @@ public class CompetitionGroupsMaker {
                     if (competitionGroup.discipline() != discipline)
                         continue;
 
-                    if (competitionGroup.ageGroup() != AgeGroups.getAgeGroup(athleteRecord.getAthlete().age()))
+                    if (competitionGroup.age_group() != AgeGroups.getAgeGroup(athleteRecord.getAthlete().age()))
                         continue;
 
                     if (competitionGroup.gender() == Gender.UNISEX || competitionGroup.gender() == athleteRecord.getAthlete().gender())

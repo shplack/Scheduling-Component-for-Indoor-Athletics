@@ -4,17 +4,16 @@ import Athlete.AthleteRecord;
 import Athlete.Gender;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static Competitions.AgeGroups.AgeGroup;
 import static Discipline.Disciplines.Discipline;
 
-public record CompetitionGroup(Discipline discipline, AgeGroup ageGroup, Gender gender, List<AthleteRecord> athleteRecordsList) {
+public record CompetitionGroup(Discipline discipline, AgeGroup age_group, Gender gender, ArrayList<AthleteRecord> athleteRecordsList) {
 
-    public CompetitionGroup(Discipline discipline, AgeGroup ageGroup, Gender gender) {
+    public CompetitionGroup(Discipline discipline, AgeGroup age_group, Gender gender) {
         this(
                 discipline,
-                ageGroup,
+                age_group,
                 gender,
                 new ArrayList<>()
         );
@@ -27,7 +26,7 @@ public record CompetitionGroup(Discipline discipline, AgeGroup ageGroup, Gender 
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder(
                 "Competition: " + discipline +
-                "\n  ├─ Age group: " + ageGroup.toString() +
+                "\n  ├─ Age group: " + age_group.toString() +
                 "\n  ├─ Gender: " + gender.toString() +
                 "\n  └─ Athletes: "
         );
