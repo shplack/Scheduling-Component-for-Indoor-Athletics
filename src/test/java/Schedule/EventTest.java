@@ -22,7 +22,7 @@ class EventTest {
     @BeforeEach
     void setUp() {
         event = new Event(
-                new int[] {1,2,3},
+                new ArrayList<>(List.of(1, 2, 3)),
                 new ArrayList<>(List.of(new Athlete(
                         1,
                         "ÖSK",

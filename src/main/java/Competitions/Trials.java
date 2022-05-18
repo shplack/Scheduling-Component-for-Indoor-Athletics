@@ -1,5 +1,6 @@
 package Competitions;
 
+import static Competitions.Trials.Trial.Priority.*;
 import static Discipline.Disciplines.Discipline;
 import static Discipline.Stations.Station;
 
@@ -15,6 +16,24 @@ public class Trials {
         TRIAL_III,
         TRIAL_IV;
 
+        public enum Priority {
+            LOWER,
+            EQUAL,
+            HIGHER
+        }
+
+        private boolean between(Trial lower_ordinal, Trial higher_ordinal) {
+            return this.ordinal() >= lower_ordinal.ordinal() && this.ordinal() <= higher_ordinal.ordinal();
+        }
+
+        public Priority comparePriority(Trial trial) {
+            if ((this.between(QUALIFYING, FINAL) && trial.between(QUALIFYING, FINAL)) ||
+                    (this.between(TRIAL_I, TRIAL_IV) && trial.between(TRIAL_I, TRIAL_IV)))
+                return this.ordinal() > trial.ordinal() ?  HIGHER : this.ordinal() == trial.ordinal() ? EQUAL : LOWER;
+
+            return EQUAL;
+        }
+
         public int getNumGroups() {
             return switch(this) {
                 case QUARTER_FINAL -> 4;
@@ -23,9 +42,6 @@ public class Trials {
                 default -> 0;
             };
         }
-
-
-
 
         public boolean canHazTrial(Station station, int numAthletes) {
             return switch (this) {
