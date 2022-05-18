@@ -16,7 +16,7 @@ public class CompetitionGroupsMaker {
 
         for (Discipline discipline : Discipline.values()) {
             for (AgeGroup ageGroup : AgeGroup.values()) {
-                if (AgeGroups.unisexGroup(ageGroup)) {
+                if (ageGroup.isUnisex()) {
                     competitionGroups.add(new CompetitionGroup(discipline, ageGroup, Gender.UNISEX));
                 } else {
                     competitionGroups.add(new CompetitionGroup(discipline, ageGroup, Gender.MALE));

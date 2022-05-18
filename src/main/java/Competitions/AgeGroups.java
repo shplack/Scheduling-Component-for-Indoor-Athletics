@@ -9,7 +9,34 @@ public class AgeGroups {
         THIRTEEN_TO_FOURTEEN,
         FIFTEEN_TO_SIXTEEN,
         SEVENTEEN_TO_EIGHTEEN,
-        NINETEEN_AND_OVER
+        NINETEEN_AND_OVER;
+
+        public boolean isUnisex() {
+            return switch(this) {
+                case EIGHT_AND_UNDER, NINE_TO_TEN, ELEVEN_TO_TWELVE -> true;
+                default -> false;
+            };
+        }
+
+        public boolean isLowerThan(AgeGroup ageGroup) {
+            return ordinal() < ageGroup.ordinal();
+        }
+
+        public boolean isLowerThanOrEqualTo(AgeGroup ageGroup) {
+            return ordinal() <= ageGroup.ordinal();
+        }
+
+        public boolean isEqualTo(AgeGroup ageGroup) {
+            return this.ordinal() == ageGroup.ordinal();
+        }
+
+        public boolean isGreaterThan(AgeGroup ageGroup) {
+            return this.ordinal() > ageGroup.ordinal();
+        }
+
+        public boolean isGreaterThanOrEqualTo(AgeGroup ageGroup) {
+            return this.ordinal() >= ageGroup.ordinal();
+        }
     }
 
     public static AgeGroup getAgeGroup(int age) {
@@ -28,13 +55,6 @@ public class AgeGroups {
         } else {
             return AgeGroup.NINETEEN_AND_OVER;
         }
-    }
-
-    public static boolean unisexGroup(AgeGroup ageGroup) {
-        return switch(ageGroup) {
-            case EIGHT_AND_UNDER, NINE_TO_TEN, ELEVEN_TO_TWELVE -> true;
-            default -> false;
-        };
     }
 
 }
