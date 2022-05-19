@@ -19,6 +19,6 @@ class TimeSlotTest {
         assertNotEquals(TimeSlot.toString(52), "14:10");
         assertEquals(TimeSlot.toString(108), "18:55");
         assertEquals(TimeSlot.toString(109), "10:00");*/
-        System.out.println(TimeSlot.toString(218));
+        System.out.println(TimeSlot.getStartTime(218));
     }
 }
