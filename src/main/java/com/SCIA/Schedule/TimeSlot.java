@@ -6,6 +6,8 @@ public class TimeSlot {
 
     private static final int START_TIME = 10;
     private static final int MAX_NUM_SLOTS_ONE_DAY = 108;
+
+    private static final int MAX_NUM_SLOTS_ONE_DAY_Duration = 120;
     public static final int INCREMENT = 5;
 
     public static List<Integer> test(List<Integer> testers) {
@@ -24,6 +26,46 @@ public class TimeSlot {
         int hours = time_slots_in_minutes / 60 + START_TIME;
         int minutes = time_slots_in_minutes % 60;
 
+        return getString(day, hours, minutes);
+    }
+    //get day by timeslot
+    public static int getDay(int time_slot) {
+        return (time_slot / MAX_NUM_SLOTS_ONE_DAY_Duration)+1;
+    }
+    public static int getStartHour(int time_slot){
+        time_slot--;
+        time_slot %= MAX_NUM_SLOTS_ONE_DAY;
+
+        int time_slots_in_minutes = time_slot * INCREMENT;
+        int hours = time_slots_in_minutes / 60 + START_TIME;
+        return hours;
+    }
+    public static int getStartMinute(int time_slot){
+        time_slot--;
+        time_slot %= MAX_NUM_SLOTS_ONE_DAY;
+
+        int time_slots_in_minutes = time_slot * INCREMENT;
+        int minutes = time_slots_in_minutes % 60;
+        return minutes;
+    }
+    public static int getEndHour(int time_slot){
+        time_slot--;
+        time_slot %= MAX_NUM_SLOTS_ONE_DAY_Duration;
+
+        int time_slots_in_minutes = time_slot * INCREMENT;
+        int hours = time_slots_in_minutes / 60 + START_TIME;
+        return hours;
+    }
+    public static String getEndTime(int time_slot){
+        int day = getDay(time_slot);
+        int hours = getEndHour(time_slot);
+        int minutes = getStartMinute(time_slot);
+
+
+        return getString(day, hours, minutes);
+    }
+
+    private static String getString(int day, int hours, int minutes) {
         String str_minutes = String.valueOf(minutes);
         if (minutes < 10)
             str_minutes = "0" + str_minutes;
@@ -34,8 +76,6 @@ public class TimeSlot {
 
         return "day: "+ day + "\t"+ str_hours + ":" + str_minutes;
     }
-    //get day by timeslot
-    public static int getDay(int time_slot) {
-        return (time_slot / MAX_NUM_SLOTS_ONE_DAY)+1;
-    }
+
+
 }
