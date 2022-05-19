@@ -1,0 +1,19 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ScheduleTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+    <module name="SCIA" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.SCIA.Schedule.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <option name="PACKAGE_NAME" value="Schedule" />
+    <option name="MAIN_CLASS_NAME" value="com.SCIA.Schedule.ScheduleTest" />
+    <option name="METHOD_NAME" value="" />
+    <option name="TEST_OBJECT" value="class" />
+    <option name="WORKING_DIRECTORY" value="$ModuleTestResourcesDir$" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
