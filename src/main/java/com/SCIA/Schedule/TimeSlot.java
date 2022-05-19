@@ -6,7 +6,6 @@ public class TimeSlot {
 
     private static final int START_TIME = 10;
     private static final int MAX_NUM_SLOTS_ONE_DAY = 108;
-
     private static final int MAX_NUM_SLOTS_ONE_DAY_Duration = 120;
     public static final int INCREMENT = 5;
 
@@ -16,6 +15,9 @@ public class TimeSlot {
 
     //get day by timeslot
     public static int getDay(int time_slot) {
+        return (time_slot / MAX_NUM_SLOTS_ONE_DAY)+1;
+    }
+    public static int getDayDuration(int time_slot) {
         return (time_slot / MAX_NUM_SLOTS_ONE_DAY_Duration)+1;
     }
     public static int getStartHour(int time_slot){
@@ -51,7 +53,7 @@ public class TimeSlot {
         return hours;
     }
     public static String getEndTime(int time_slot){
-        int day = getDay(time_slot);
+        int day = getDayDuration(time_slot);
         int hours = getEndHour(time_slot);
         int minutes = getMinute(time_slot);
 

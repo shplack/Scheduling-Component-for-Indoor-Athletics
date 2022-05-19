@@ -20,10 +20,10 @@ public class TestTimeSlotGetTime {
     public void testTimeSlotToString(){
         assertEquals(getStartTime(50), "day: 1\t14:05");
 
-        testTimeSlotToString(50, "14:10");
+        /*testTimeSlotToString(50, "14:10");
         testTimeSlotToString(51, "14:15");
-        testTimeSlotToString(500, "11:40");
-        System.out.println(getStartHour(500));
+        testTimeSlotToString(500, "11:40");*/
+        System.out.println(getStartTime(218));
         System.out.println(getMinute(500));
         System.out.println(getMinute(109));
         System.out.println(getEndTime(119));
