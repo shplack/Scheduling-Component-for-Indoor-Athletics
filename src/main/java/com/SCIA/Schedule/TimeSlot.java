@@ -36,7 +36,7 @@ public class TimeSlot {
         int minutes = time_slots_in_minutes % 60;
         return minutes;
     }
-    public static String getStartTime(int time_slot){
+    public static String getStartTime(int time_slot) {
 
         int day = getDay(time_slot);
         int hours = getStartHour(time_slot);
@@ -44,7 +44,7 @@ public class TimeSlot {
 
         return getString(day, hours, minutes);
     }
-    public static int getEndHour(int time_slot){
+    public static int getEndHour(int time_slot) {
         time_slot--;
         time_slot %= MAX_NUM_SLOTS_ONE_DAY_Duration;
 
@@ -52,7 +52,7 @@ public class TimeSlot {
         int hours = time_slots_in_minutes / 60 + START_TIME;
         return hours;
     }
-    public static String getEndTime(int time_slot){
+    public static String getEndTime(int time_slot) {
         int day = getDayDuration(time_slot);
         int hours = getEndHour(time_slot);
         int minutes = getMinute(time_slot);
@@ -73,7 +73,7 @@ public class TimeSlot {
         return "day: "+ day + "\t"+ str_hours + ":" + str_minutes;
     }
 
-    public static boolean pastLastTimeSlot(int time_slot){
+    public static boolean pastLastTimeSlot(int time_slot) {
         int hours = getEndHour(time_slot);
 
         if (hours < 20){
@@ -82,12 +82,20 @@ public class TimeSlot {
         return false;
     }
 
-    public static int getNextDayTimeSlot(int time_slot){
+    public static int getNextDayTimeSlot(int time_slot) {
 
         int getDay = getDay(time_slot);
-        int nextDayTimeSlot = getDay * 108;
+        int nextDayTimeSlot = getDay * MAX_NUM_SLOTS_ONE_DAY;
 
         return nextDayTimeSlot;
+
+    }
+
+    public static int getLastTimeSlot(int day) {
+
+        int last_time_slot = (day - 1) * MAX_NUM_SLOTS_ONE_DAY  + MAX_NUM_SLOTS_ONE_DAY_Duration - 1;
+
+        return last_time_slot;
 
     }
 
