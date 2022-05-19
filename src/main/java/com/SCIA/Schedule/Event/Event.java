@@ -31,6 +31,20 @@ public record Event(ArrayList<Integer> time_slots, ArrayList<Athlete> athletes, 
         this.time_slots.addAll(time_slots);
     }
 
+    public boolean isSwappable(Event event) {
+        // same age group, station, gender, not same event
+        if (this.equals(event))
+            return false;
+        if (this.age_group != event.age_group)
+            return false;
+        if (this.station != event.station)
+            return false;
+        if (this.gender != event.gender)
+            return false;
+
+        return true;
+    }
+
     public Event deepCopy() {
         return new Event(new ArrayList<>(time_slots), new ArrayList<>(athletes), station, discipline, trial, age_group, gender);
     }
