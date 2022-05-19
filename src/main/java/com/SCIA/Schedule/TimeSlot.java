@@ -88,7 +88,6 @@ public class TimeSlot {
         int nextDayTimeSlot = getDay * MAX_NUM_SLOTS_ONE_DAY;
 
         return nextDayTimeSlot;
-
     }
 
     public static int getLastTimeSlot(int day) {

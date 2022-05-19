@@ -4,7 +4,6 @@ import com.SCIA.Athlete.AthleteRecord;
 import com.SCIA.CSV.CSV;
 import com.SCIA.Competitions.CompetitionGroup;
 import com.SCIA.Competitions.CompetitionGroupsMaker;
-import com.SCIA.Competitions.Trials.Trial;
 import com.SCIA.Competitions.Trials.Trial.Order;
 import com.SCIA.Schedule.Event.Event;
 import org.junit.jupiter.api.BeforeAll;
@@ -46,9 +45,14 @@ class ScheduleTest {
     }
 
     @Test
+    void sortedSchedule() {
+        System.out.println(schedule.inOrder());
+    }
+
+    @Test
     void inOrder() {
         List<Event> events = schedule.eventList();
-        events.sort(new Schedule.SortEventByTrialAgeGroupDiscipline());
+        events.sort(new ScheduleSorters.SortEventsByTrialStationAgegroup());
         for (int i = 0, j = 1; j < events.size(); i++, j++) {
             Order order = events.get(i).trial().compareOrder(events.get(j).trial());
             assertTrue(order == LOWER || order == EQUAL);

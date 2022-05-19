@@ -5,6 +5,7 @@ import com.SCIA.Athlete.Gender;
 import com.SCIA.Schedule.TimeSlot;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import static com.SCIA.Competitions.AgeGroups.AgeGroup;
@@ -26,7 +27,19 @@ public record Event(ArrayList<Integer> time_slots, ArrayList<Athlete> athletes, 
         Objects.requireNonNull(gender);
     }
 
-    public void assignTimeSlot(ArrayList<Integer> time_slots) {
+    public Event(Event event) {
+        this(
+                new ArrayList<>(),
+                event.athletes,
+                event.station,
+                event.discipline,
+                event.trial,
+                event.age_group,
+                event.gender
+        );
+    }
+
+    public void assignTimeSlot(List<Integer> time_slots) {
         this.time_slots.clear();
         this.time_slots.addAll(time_slots);
     }
@@ -99,7 +112,7 @@ public record Event(ArrayList<Integer> time_slots, ArrayList<Athlete> athletes, 
         if (time_slots.size() > 0) {
             return
                 TimeSlot.getStartTime(time_slots.get(0)) + "\t" +
-                TimeSlot.getStartTime(time_slots.get(time_slots.size() - 1) + 1) + "\t" +
+                TimeSlot.getEndTime(time_slots.get(time_slots.size() - 1) + 1) + "\t" +
                 stringBuilder;
         }
 

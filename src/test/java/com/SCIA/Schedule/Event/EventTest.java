@@ -1,4 +1,4 @@
-package com.SCIA.Schedule;
+package com.SCIA.Schedule.Event;
 
 import com.SCIA.Athlete.Athlete;
 import com.SCIA.Athlete.Gender;
