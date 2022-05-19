@@ -73,5 +73,22 @@ public class TimeSlot {
         return "day: "+ day + "\t"+ str_hours + ":" + str_minutes;
     }
 
+    public static boolean pastLastTimeSlot(int time_slot){
+        int hours = getEndHour(time_slot);
+
+        if (hours < 20){
+            return true;
+        }
+        return false;
+    }
+
+    public static int getNextDayTimeSlot(int time_slot){
+
+        int getDay = getDay(time_slot);
+        int nextDayTimeSlot = getDay * 108;
+
+        return nextDayTimeSlot;
+
+    }
 
 }
