@@ -29,7 +29,9 @@ public record Schedule(List<Event> eventList) {
         return stringBuilder.toString();
     }
 
-
+    public Schedule deepCopy() {
+        return new Schedule(new ArrayList<>(eventList.stream().map(Event::deepCopy).toList()));
+    }
 
     public String inOrder() {
         ArrayList<Event> events = new ArrayList<>(List.copyOf(eventList));
