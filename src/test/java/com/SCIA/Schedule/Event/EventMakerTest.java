@@ -4,7 +4,6 @@ import com.SCIA.Athlete.Athlete;
 import com.SCIA.Athlete.AthleteRecord;
 import com.SCIA.CSV.CSV;
 import com.SCIA.Competitions.CompetitionGroupsMaker;
-import com.SCIA.Discipline.Stations;
 import com.SCIA.Discipline.Stations.Station;
 import com.SCIA.Schedule.Schedule;
 import com.SCIA.Schedule.ScheduleMaker;
@@ -29,7 +28,6 @@ class EventMakerTest {
     static void setUp() throws IOException {
         records = new CSV("registration-list.csv").getRecords();
         schedule = ScheduleMaker.makeSchedule(CompetitionGroupsMaker.makeCompetitionGroups(records));
-        stationEvents = EventMaker.getStationEvents();
     }
 
     @Test
@@ -80,7 +78,7 @@ class EventMakerTest {
             List<Integer> time_slots = new ArrayList<>(duration);
             for (int i = new_booked; i < duration + new_booked; i++)
                 time_slots.add(i);
-            event.assignTimeSlot(time_slots);
+            event.assignTimeSlots(time_slots);
         });
 
         System.out.println(schedule);
