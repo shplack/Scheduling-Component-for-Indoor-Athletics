@@ -3,7 +3,7 @@
     <module name="SCIA" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="com.SCIA.Schedule.*" />
+        <option name="PATTERN" value="com.SCIA.Schedule.Event.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>

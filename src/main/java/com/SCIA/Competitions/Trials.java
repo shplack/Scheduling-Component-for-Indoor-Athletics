@@ -16,6 +16,7 @@ public class Trials {
         TRIAL_II,
         TRIAL_III,
         TRIAL_IV,
+        TRIAL,
 
         AWARD;
 

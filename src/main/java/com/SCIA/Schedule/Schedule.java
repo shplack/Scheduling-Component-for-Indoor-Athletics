@@ -29,31 +29,13 @@ public record Schedule(List<Event> eventList) {
         return stringBuilder.toString();
     }
 
-    static class SortEventByTrialAgeGroupDiscipline implements Comparator<Event> {
-
-        @Override
-        public int compare(Event event1, Event event2) {
-            if (event1.trial() == event2.trial()) {
-                if (event1.age_group() == event2.age_group()) {
-                    if (event1.discipline() == event2.discipline()) {
-                        return 0;
-                    }
-                    return event1.discipline().ordinal() - event2.discipline().ordinal();
-                }
-                return event1.age_group().ordinal() - event2.age_group().ordinal();
-            }
-            return event1.trial().ordinal() - event2.trial().ordinal();
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            return false;
-        }
+    public Schedule deepCopy() {
+        return new Schedule(new ArrayList<>(eventList.stream().map(Event::deepCopy).toList()));
     }
 
     public String inOrder() {
         ArrayList<Event> events = new ArrayList<>(List.copyOf(eventList));
-        events.sort(new SortEventByTrialAgeGroupDiscipline());
+        events.sort(new ScheduleSorters.SortEventByTrialAgeGroupDiscipline());
         return new Schedule(events).toString();
     }
 }
