@@ -18,7 +18,7 @@ public class EventMaker {
     static Map<Station, Integer> stationTimes = new HashMap<>(Station.values().length);
 
     private static int calculateIncrementalEventDuration(Event event) {
-        return event.athletes().size() * 10 / TimeSlot.INCREMENT;
+        return event.athletes().size() * 5 / TimeSlot.INCREMENT;
     }
 
     private static int calculateNonIncrementalEventDuration(CompetitionGroup competitionGroup) {
@@ -35,8 +35,7 @@ public class EventMaker {
         return (int) Math.ceil(max / 60 / TimeSlot.INCREMENT);
     }
 
-    private static List<Event> assignTimeSlot(Event event, CompetitionGroup competitionGroup) {
-        List<Event> events = new ArrayList<>();
+    private static void assignTimeSlot(Event event, CompetitionGroup competitionGroup) {
         int last_booked;
         int new_booked;
         if (!stationTimes.containsKey(event.station())) {
@@ -50,37 +49,23 @@ public class EventMaker {
                 competitionGroup.discipline().isIncremental() ? calculateIncrementalEventDuration(event) :
                 calculateNonIncrementalEventDuration(competitionGroup);
 
+        assert duration < TimeSlot.getLastTimeSlot();
 
-        while (TimeSlot.pastLastTimeSlot(new_booked + duration)) {
-            int eventDay = TimeSlot.getDay(new_booked);
-            int lastTimeSlot = TimeSlot.getLastTimeSlot(eventDay);
-            int available_time = lastTimeSlot - new_booked;
-
-            Event eventCopy = new Event(event);
-
-            List<Integer> time_slots = new ArrayList<>(available_time);
-            for (int i = new_booked; i < lastTimeSlot; i++)
-                time_slots.add(i);
-
-            eventCopy.assignTimeSlots(time_slots);
-            events.add(eventCopy);
-
-            new_booked = TimeSlot.getNextDayTimeSlot(new_booked);
-            stationTimes.put(eventCopy.station(), new_booked);
-            duration -= available_time;
-        }
-
-        if (duration <= 0) {
-            return events;
+        while (TimeSlot.pastLastTimeSlot(new_booked, duration)) {
+            new_booked += 1;
         }
 
         List<Integer> time_slots = new ArrayList<>(duration);
         for (int i = new_booked; i < duration + new_booked; i++)
             time_slots.add(i);
+
+
+
+        boolean sameDay = TimeSlot.getDay(time_slots.get(0)) == TimeSlot.getDay(time_slots.get(time_slots.size()-1));
+        assert sameDay;
+
         event.assignTimeSlots(time_slots);
         stationTimes.put(event.station(), new_booked + duration);
-        events.add(event);
-        return events;
     }
 
     private static ArrayList<Event> makeXFinalsEvent(CompetitionGroup competitionGroup, Trials.Trial trial, Station station) {
@@ -97,7 +82,8 @@ public class EventMaker {
 
         for (int i = 0; i < num_groups; i++) {
             Event eventCopy = new Event(event);
-            events.addAll(assignTimeSlot(eventCopy, competitionGroup));
+            assignTimeSlot(eventCopy, competitionGroup);
+            events.add(eventCopy);
         }
 
         return events;
@@ -123,7 +109,8 @@ public class EventMaker {
 
         athleteGroups.forEach(group -> {
             Event event = new Event(null, group, station, discipline, trial, ageGroup, competitionGroup.gender());
-            events.addAll(assignTimeSlot(event, competitionGroup));
+            assignTimeSlot(event, competitionGroup);
+            events.add(event);
         });
 
         return events;
@@ -152,31 +139,33 @@ public class EventMaker {
                        competitionGroup.age_group(),
                        competitionGroup.gender()
                 );
-                events.addAll(assignTimeSlot(event, competitionGroup));
+                assignTimeSlot(event, competitionGroup);
+                events.add(event);
             }
         });
 
         return events;
     }
 
-    private static ArrayList<Event> makeNonIncrementalEvents(CompetitionGroup competitionGroup, Trials.Trial trial, Station station) {
-        ArrayList<Event> events = new ArrayList<>();
+    private static List<Event> makeNonIncrementalEvents(CompetitionGroup competitionGroup, Trials.Trial trial, Station station) {
+        List<Event> events = new ArrayList<>(competitionGroup.athleteRecordsList().size());
 
-        competitionGroup.athleteRecordsList().stream().map(AthleteRecord::getAthlete).forEach( (athlete) ->
+        competitionGroup.athleteRecordsList().forEach( (athleteRecord) ->
                 {
                     Event event = new Event(
-                            null, new ArrayList<>(List.of(athlete)), station, competitionGroup.discipline(),
-                            trial, competitionGroup.age_group(), competitionGroup.gender()
+                            null, new ArrayList<>(List.of(athleteRecord.getAthlete())), station,
+                            competitionGroup.discipline(), trial, competitionGroup.age_group(), competitionGroup.gender()
                     );
-                    events.addAll(assignTimeSlot(event, competitionGroup));
+                    assignTimeSlot(event, competitionGroup);
+                    events.add(event);
                 }
         );
 
         return events;
     }
 
-    public static ArrayList<Event> makeEvents(CompetitionGroup competitionGroup) {
-        ArrayList<Event> events = new ArrayList<>();
+    public static List<Event> makeEvents(CompetitionGroup competitionGroup) {
+        List<Event> events = new LinkedList<>();
 
         Trials.Trial[] trials = competitionGroup.discipline().getTrials();
         Station[] stations = competitionGroup.discipline().getStations();
@@ -197,7 +186,7 @@ public class EventMaker {
         return events;
     }
 
-    public static ArrayList<Event> awardsCeremony (List<CompetitionGroup> competitionGroups) {
+    public static List<Event> awardsCeremony (List<CompetitionGroup> competitionGroups) {
         ArrayList<Event> awardsEvents = new ArrayList<>(competitionGroups.size());
 
         for (CompetitionGroup competitionGroup : competitionGroups) {
@@ -210,7 +199,8 @@ public class EventMaker {
                     competitionGroup.age_group(),
                     competitionGroup.gender()
             );
-            awardsEvents.addAll(assignTimeSlot(event, competitionGroup));
+            assignTimeSlot(event, competitionGroup);
+            awardsEvents.add(event);
         }
 
         return awardsEvents;

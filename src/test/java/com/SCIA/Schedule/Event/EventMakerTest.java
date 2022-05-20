@@ -19,8 +19,6 @@ import java.util.List;
 import java.util.Map;
 
 class EventMakerTest {
-
-    static List<List<Event>> stationEvents;
     static Schedule schedule;
     static ArrayList<AthleteRecord> records;
 
@@ -29,19 +27,6 @@ class EventMakerTest {
         records = new CSV("registration-list.csv").getRecords();
         schedule = ScheduleMaker.makeSchedule(CompetitionGroupsMaker.makeCompetitionGroups(records));
     }
-
-    @Test
-    void printStationEvents() {
-        stationEvents.forEach(eventList -> eventList.forEach(System.out::println));
-    }
-
-//    @Test
-//    void eventEndsOnSameDayAsItStarts() {
-//        schedule.eventList().forEach(event -> {
-//            ArrayList<Integer> time_slots = event.time_slots();
-//            assertEquals(TimeSlot.getDay(time_slots.get(0)), TimeSlot.getDay(time_slots.get(time_slots.size()-1)+1));
-//        });
-//    }
 
 
     int calculateEventDuration(Event event) {

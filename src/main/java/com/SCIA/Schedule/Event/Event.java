@@ -93,13 +93,21 @@ public record Event(ArrayList<Integer> time_slots, ArrayList<Athlete> athletes, 
     }
 
     public String toString() {
-                StringBuilder stringBuilder = new StringBuilder(
-                discipline + "\t" +
-                trial + "  \t" +
-                station + "\t" +
-                age_group + "\t\t" +
-                gender + "\t"
-        );
+        StringBuilder stringBuilder = new StringBuilder();
+
+        int start = time_slots.get(0);
+        int end = time_slots.get(time_slots.size() - 1);
+        int day = TimeSlot.getDay(start);
+
+        stringBuilder.append("Day: ").append(day).append(", ")
+                .append(TimeSlot.toString(start)).append(" - ")
+                .append(TimeSlot.toString(end + 1)).append("\t");
+
+        stringBuilder.append(discipline).append("\t")
+                .append(trial).append("  \t")
+                .append(station).append("\t")
+                .append(age_group).append("\t\t")
+                .append(gender).append("\t");
 
         for (Athlete athlete : athletes) {
             stringBuilder
@@ -107,13 +115,6 @@ public record Event(ArrayList<Integer> time_slots, ArrayList<Athlete> athletes, 
                     .append(" ")
                     .append(athlete.surname())
                     .append(", ");
-        }
-
-        if (time_slots.size() > 0) {
-            return
-                TimeSlot.getStartTime(time_slots.get(0)) + "\t" +
-                TimeSlot.getEndTime(time_slots.get(time_slots.size() - 1) + 1) + "\t" +
-                stringBuilder;
         }
 
         return stringBuilder.toString();
