@@ -16,25 +16,22 @@ public class Mutation {
         int rand_int1 = rand.nextInt(eventList.size());
         int rand_int2 = rand.nextInt(eventList.size());
 
-        //deep copy of eventList needs to be done here
-
         Event event1 = eventList.get(rand_int1);
+        System.out.println("before mutate Event 1: " + event1.toString());
         Event event2 = eventList.get(rand_int2);
+        System.out.println("before mutate Event 2: " + event2.toString());
 
         if(event1.isSwappable(event2)) {
-
-            ArrayList<Integer> timeslot1 = event1.time_slots();
-            ArrayList<Integer> timeslot2 = event2.time_slots();
-
-            for (int i = 0; i < event1.time_slots().size(); i++) {
-                event1.time_slots().set(i, timeslot2.get(i));
-            }
-            for (int i = 0; i < eventList.size(); i++) {
-                event2.time_slots().set(i, timeslot1.get(i));
-            }
-            //do e^ calculation and compare to random float number between 0 and 1
-            //If its less than e^ calculation return new schedule
+            System.out.println();
+            ArrayList<Integer> timeslot1 = new ArrayList<>(event1.time_slots());
+            ArrayList<Integer> timeslot2 = new ArrayList<>(event2.time_slots());
+            event1.assignTimeSlot(timeslot2);
+            event2.assignTimeSlot(timeslot1);
         }
+
+        System.out.println("after mutate Event 1: " + event1.toString());
+        System.out.println("after mutate Event 2: " + event2.toString());
+
         return eventList;
 
 

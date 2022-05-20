@@ -128,6 +128,8 @@ class SimulatedAnnealingTest {
 
     @Test
     void SimulatedAnnealing() throws IOException {
+        SimulatedAnnealing.simulatedAnnealingFunction();
+        /*
 
         CSV csv = new CSV("src/main/resources/registration-list.csv");
         ArrayList<AthleteRecord> athlete_records = csv.getRecords();
@@ -148,5 +150,9 @@ class SimulatedAnnealingTest {
             if(conflicts == 15)
                 value = 1;
         }
+
+         */
     }
+
+
 }

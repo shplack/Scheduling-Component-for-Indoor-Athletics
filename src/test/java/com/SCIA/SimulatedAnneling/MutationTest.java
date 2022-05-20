@@ -1,7 +1,10 @@
 package com.SCIA.SimulatedAnneling;
 
 import com.SCIA.Athlete.*;
+import com.SCIA.CSV.CSV;
 import com.SCIA.Competitions.AgeGroups;
+import com.SCIA.Competitions.CompetitionGroup;
+import com.SCIA.Competitions.CompetitionGroupsMaker;
 import com.SCIA.Competitions.Trials;
 import com.SCIA.Discipline.Disciplines;
 import com.SCIA.Discipline.Disciplines.Discipline;
@@ -10,9 +13,12 @@ import com.SCIA.Discipline.Stations.Station;
 
 
 import com.SCIA.Schedule.Event.Event;
+import com.SCIA.Schedule.Schedule;
+import com.SCIA.Schedule.ScheduleMaker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -55,7 +61,7 @@ class MutationTest {
                         Gender.MALE,
                         30
                 ))),
-                Stations.Station.LONG_TRIPLE_II,
+                Stations.Station.LONG_TRIPLE_I,
                 Disciplines.Discipline.TRIPLE_JUMP,
                 Trials.Trial.TRIAL_I,
                 AgeGroups.AgeGroup.NINETEEN_AND_OVER,
@@ -72,7 +78,7 @@ class MutationTest {
                         Gender.MALE,
                         29
                 ))),
-                Stations.Station.LONG_TRIPLE_II,
+                Stations.Station.LONG_TRIPLE_I,
                 Disciplines.Discipline.TRIPLE_JUMP,
                 Trials.Trial.TRIAL_I,
                 AgeGroups.AgeGroup.NINETEEN_AND_OVER,
@@ -119,8 +125,13 @@ class MutationTest {
     }
 
     @Test
-    void mutate() {
-        Mutation.MutationFunction(eventList);
+    void mutate() throws IOException {
+        CSV csv = new CSV("registration-list.csv");
+        ArrayList<AthleteRecord> athlete_records = csv.getRecords();
+        ArrayList<CompetitionGroup> competition_groups = CompetitionGroupsMaker.makeCompetitionGroups(athlete_records);
+        Schedule schedule = ScheduleMaker.makeSchedule(competition_groups);
+
+        Mutation.MutationFunction(schedule.eventList());
     }
 
 
