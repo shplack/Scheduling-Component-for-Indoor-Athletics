@@ -11,6 +11,7 @@ import com.SCIA.Schedule.TimeSlot;
 
 import java.util.*;
 
+import static com.SCIA.Competitions.Trials.Trial.AWARD;
 import static com.SCIA.Competitions.Trials.Trial.TRIAL;
 
 public class EventMaker {
@@ -35,18 +36,18 @@ public class EventMaker {
     }
 
     private static List<Event> assignTimeSlot(Event event, CompetitionGroup competitionGroup) {
-        List<Event> continuedEvents = new ArrayList<>();
+        List<Event> events = new ArrayList<>();
         int last_booked;
         int new_booked;
         if (!stationTimes.containsKey(event.station())) {
             new_booked = 1;
         } else {
             last_booked = stationTimes.get(event.station());
-            new_booked = last_booked + 1;
+            new_booked = last_booked + (event.trial() == AWARD ? 0 : 1);
         }
 
-        int duration = competitionGroup.discipline().isIncremental() ?
-                calculateIncrementalEventDuration(event) :
+        int duration =  event.trial() == AWARD ? 1 :
+                competitionGroup.discipline().isIncremental() ? calculateIncrementalEventDuration(event) :
                 calculateNonIncrementalEventDuration(competitionGroup);
 
 
@@ -62,22 +63,24 @@ public class EventMaker {
                 time_slots.add(i);
 
             eventCopy.assignTimeSlots(time_slots);
-            continuedEvents.add(eventCopy);
+            events.add(eventCopy);
 
             new_booked = TimeSlot.getNextDayTimeSlot(new_booked);
             stationTimes.put(eventCopy.station(), new_booked);
             duration -= available_time;
         }
 
-        if (duration <= 0)
-            return continuedEvents;
+        if (duration <= 0) {
+            return events;
+        }
 
         List<Integer> time_slots = new ArrayList<>(duration);
-        for (int i = new_booked; i <= duration + new_booked; i++)
+        for (int i = new_booked; i < duration + new_booked; i++)
             time_slots.add(i);
         event.assignTimeSlots(time_slots);
         stationTimes.put(event.station(), new_booked + duration);
-        return continuedEvents;
+        events.add(event);
+        return events;
     }
 
     private static ArrayList<Event> makeXFinalsEvent(CompetitionGroup competitionGroup, Trials.Trial trial, Station station) {
@@ -95,7 +98,6 @@ public class EventMaker {
         for (int i = 0; i < num_groups; i++) {
             Event eventCopy = new Event(event);
             events.addAll(assignTimeSlot(eventCopy, competitionGroup));
-            events.add(eventCopy);
         }
 
         return events;
@@ -121,7 +123,7 @@ public class EventMaker {
 
         athleteGroups.forEach(group -> {
             Event event = new Event(null, group, station, discipline, trial, ageGroup, competitionGroup.gender());
-            events.add(event);
+            events.addAll(assignTimeSlot(event, competitionGroup));
         });
 
         return events;
@@ -150,9 +152,7 @@ public class EventMaker {
                        competitionGroup.age_group(),
                        competitionGroup.gender()
                 );
-                List<Event> eventContinuations = assignTimeSlot(event, competitionGroup);
-                events.addAll(eventContinuations);
-                events.add(event);
+                events.addAll(assignTimeSlot(event, competitionGroup));
             }
         });
 
@@ -168,7 +168,7 @@ public class EventMaker {
                             null, new ArrayList<>(List.of(athlete)), station, competitionGroup.discipline(),
                             trial, competitionGroup.age_group(), competitionGroup.gender()
                     );
-                    events.add(event);
+                    events.addAll(assignTimeSlot(event, competitionGroup));
                 }
         );
 
@@ -210,8 +210,7 @@ public class EventMaker {
                     competitionGroup.age_group(),
                     competitionGroup.gender()
             );
-
-            awardsEvents.add(event);
+            awardsEvents.addAll(assignTimeSlot(event, competitionGroup));
         }
 
         return awardsEvents;
