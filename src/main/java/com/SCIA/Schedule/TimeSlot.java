@@ -112,4 +112,10 @@ public class TimeSlot {
         return time_slot;
     }
 
+    public static int getNumSlots(int day) {
+        int numSlot = (MAX_NUM_SLOTS_ONE_DAY - 1) * day;
+        return numSlot;
+        
+    }
+
 }
