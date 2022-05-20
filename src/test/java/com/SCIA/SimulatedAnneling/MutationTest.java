@@ -47,7 +47,7 @@ class MutationTest {
 
         Event event_2 = new Event(
                 new ArrayList<>(List.of(4)),
-                new ArrayList<>(Arrays.asList(new Athlete(
+                new ArrayList<>(List.of(new Athlete(
                         2,
                         "ÖÖÖ",
                         "Victor",
@@ -64,7 +64,7 @@ class MutationTest {
 
         Event event_3 = new Event(
                 new ArrayList<>(List.of(1)),
-                new ArrayList<>(Arrays.asList(new Athlete(
+                new ArrayList<>(List.of(new Athlete(
                         1,
                         "ÖSK",
                         "Alexander",
@@ -82,7 +82,7 @@ class MutationTest {
 
         Event event_4 = new Event(
                 new ArrayList<>(List.of(3)),
-                new ArrayList<>(Arrays.asList(new Athlete(
+                new ArrayList<>(List.of(new Athlete(
                         2,
                         "ÖÖÖ",
                         "Victor",
@@ -99,7 +99,7 @@ class MutationTest {
 
         Event event_5 = new Event(
                 new ArrayList<>(List.of(3)),
-                new ArrayList<>(Arrays.asList(new Athlete(
+                new ArrayList<>(List.of(new Athlete(
                         2,
                         "ÖÖÖ",
                         "Victoria",
