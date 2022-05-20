@@ -8,6 +8,7 @@ public class TimeSlot {
     private static final int MAX_NUM_SLOTS_ONE_DAY = 108;
     private static final int MAX_NUM_SLOTS_ONE_DAY_Duration = 120;
     public static final int INCREMENT = 5;
+    public static final int  NUM_SLOTS_UPP_TO_NIGHT = 167;
 
     public static List<Integer> test(List<Integer> testers) {
         return testers;
@@ -52,6 +53,14 @@ public class TimeSlot {
         int hours = time_slots_in_minutes / 60 + START_TIME;
         return hours;
     }
+    public static int getHour(int time_slot){
+        time_slot--;
+        time_slot %= NUM_SLOTS_UPP_TO_NIGHT;
+
+        int time_slots_in_minutes = time_slot * INCREMENT;
+        int hours = time_slots_in_minutes / 60 + START_TIME;
+        return hours;
+    }
     public static String getEndTime(int time_slot) {
         int day = getDayDuration(time_slot);
         int hours = getEndHour(time_slot);
@@ -74,12 +83,12 @@ public class TimeSlot {
     }
 
     public static boolean pastLastTimeSlot(int time_slot) {
-        int hours = getEndHour(time_slot);
+        int hours = getHour(time_slot);
 
         if (hours < 20){
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     public static int getNextDayTimeSlot(int time_slot) {
