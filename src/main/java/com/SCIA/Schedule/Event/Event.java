@@ -39,7 +39,7 @@ public record Event(ArrayList<Integer> time_slots, ArrayList<Athlete> athletes, 
         );
     }
 
-    public void assignTimeSlot(List<Integer> time_slots) {
+    public void assignTimeSlots(List<Integer> time_slots) {
         this.time_slots.clear();
         this.time_slots.addAll(time_slots);
     }
@@ -112,7 +112,7 @@ public record Event(ArrayList<Integer> time_slots, ArrayList<Athlete> athletes, 
         if (time_slots.size() > 0) {
             return
                 TimeSlot.getStartTime(time_slots.get(0)) + "\t" +
-                TimeSlot.getEndTime(time_slots.get(time_slots.size() - 1) + 1) + "\t" +
+                TimeSlot.getEndTime(time_slots.get(time_slots.size() - 1)) + "\t" +
                 stringBuilder;
         }
 
