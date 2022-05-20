@@ -17,20 +17,20 @@ public class Mutation {
         int rand_int2 = rand.nextInt(eventList.size());
 
         Event event1 = eventList.get(rand_int1);
-        System.out.println("before mutate Event 1: " + event1.toString());
+        //System.out.println("before mutate Event 1: " + event1.toString());
         Event event2 = eventList.get(rand_int2);
-        System.out.println("before mutate Event 2: " + event2.toString());
+        //System.out.println("before mutate Event 2: " + event2.toString());
 
         if(event1.isSwappable(event2)) {
             System.out.println();
             ArrayList<Integer> timeslot1 = new ArrayList<>(event1.time_slots());
             ArrayList<Integer> timeslot2 = new ArrayList<>(event2.time_slots());
-            event1.assignTimeSlot(timeslot2);
-            event2.assignTimeSlot(timeslot1);
+            event1.assignTimeSlots(timeslot2);
+            event2.assignTimeSlots(timeslot1);
         }
 
-        System.out.println("after mutate Event 1: " + event1.toString());
-        System.out.println("after mutate Event 2: " + event2.toString());
+        //System.out.println("after mutate Event 1: " + event1.toString());
+        //System.out.println("after mutate Event 2: " + event2.toString());
 
         return eventList;
 

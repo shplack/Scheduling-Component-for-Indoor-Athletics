@@ -37,6 +37,9 @@ public class Judgement {
             }
         }
         //System.out.println("This is conflicts: " + conflicts);
+        //double double_conflicts = conflicts;
+        //double_conflicts = Math.sqrt(double_conflicts);
+        //conflicts = (int) double_conflicts;
         return conflicts;
     }
 }

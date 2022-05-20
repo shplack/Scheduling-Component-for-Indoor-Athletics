@@ -12,6 +12,7 @@ import static com.SCIA.Competitions.AgeGroups.AgeGroup;
 import static com.SCIA.Competitions.Trials.Trial;
 import static com.SCIA.Discipline.Disciplines.Discipline;
 import static com.SCIA.Discipline.Stations.Station;
+import static com.SCIA.Discipline.Stations.Station.*;
 
 public record Event(ArrayList<Integer> time_slots, ArrayList<Athlete> athletes, Station station, Discipline discipline, Trial trial,
                     AgeGroup age_group, Gender gender) {
@@ -45,13 +46,18 @@ public record Event(ArrayList<Integer> time_slots, ArrayList<Athlete> athletes, 
     }
 
     public boolean isSwappable(Event event) {
+        int stationValue = 0; //Variable to handle case of
         // same age group, station, gender, not same event
         if (this.equals(event))
             return false;
         if (this.age_group != event.age_group)
             return false;
-        if (this.station != event.station)
-            return false;
+
+        if (this.station != event.station) {
+            if (!((this.station == LONG_TRIPLE_I || this.station == LONG_TRIPLE_II) && (event.station == LONG_TRIPLE_I || event.station == LONG_TRIPLE_II)))   {
+                return false;
+            }
+        }
         if (this.gender != event.gender)
             return false;
 
