@@ -70,7 +70,7 @@ public class TimeSlot {
         return getString(day, hours, minutes);
     }
 
-    private static String getString(int day, int hours, int minutes) {
+    private static String getString(int day, int hours  , int minutes) {
         String str_minutes = String.valueOf(minutes);
         if (minutes < 10)
             str_minutes = "0" + str_minutes;
@@ -105,6 +105,11 @@ public class TimeSlot {
 
         return last_time_slot;
 
+    }
+
+    public static int getTimeSlot(int day) {
+        int time_slot = 1 + (MAX_NUM_SLOTS_ONE_DAY) * (day - 1);
+        return time_slot;
     }
 
 }

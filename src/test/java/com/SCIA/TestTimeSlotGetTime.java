@@ -18,12 +18,20 @@ public class TestTimeSlotGetTime {
     }
     @Test
     public void testTimeSlotToString(){
-        System.out.println(getHour(56));
+        /*System.out.println(getHour(56));
         System.out.println(getHour(87));
         System.out.println(getHour(67));
         System.out.println(getHour(11));
         System.out.println(getHour(38));
-        System.out.println(pastLastTimeSlot(87));
+        System.out.println(pastLastTimeSlot(1));*/
+        System.out.println(getTimeSlot(1));
+        System.out.println(getStartTime(getTimeSlot(1)));
+        System.out.println(getTimeSlot(2));
+        System.out.println(getStartTime(getTimeSlot(2)));
+        System.out.println(getTimeSlot(3));
+        System.out.println(getStartTime(getTimeSlot(3)));
+        System.out.println(getTimeSlot(4));
+        System.out.println(getStartTime(getTimeSlot(4)));
     }
 
 
