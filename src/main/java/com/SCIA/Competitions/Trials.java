@@ -41,5 +41,14 @@ public class Trials {
         }
     }
 
+    public static Trial[] runningTrials() {
+        return new Trial[] {
+                Trial.QUALIFYING,
+                Trial.QUARTER_FINAL,
+                Trial.SEMI_FINAL,
+                Trial.FINAL
+        };
+    }
+
 
 }
