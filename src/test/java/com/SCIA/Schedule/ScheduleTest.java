@@ -23,7 +23,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class ScheduleTest {
 
     static Schedule schedule;
-    static Logger logger = Logger.getLogger(ClassOrderer.ClassName.class.getName());
 
     @BeforeAll
     static void setUpAll() throws IOException {
@@ -74,14 +73,52 @@ class ScheduleTest {
                 failedEvents.add(event);
         }
 
-        if (!failedEvents.isEmpty()) {
-            failedEvents.forEach(event -> {
-                System.out.println("Failed event: " + event);
-            });
-        } else {
+        if (!failedEvents.isEmpty())
+            failedEvents.forEach(event -> System.out.println("Failed event: " + event));
+        else
             System.out.println("All events end the same day they start.");
-        }
 
         assertTrue(failedEvents.isEmpty());
+    }
+
+    @Test
+    void allEventsEndOnTheSameDayStartedStringCompare() {
+        List <Event> failedEvents = new LinkedList<>();
+
+        schedule.eventList().forEach(event -> {
+            List<Integer> time_slots = event.time_slots();
+            int start_time = time_slots.get(0);
+            int end_time = time_slots.get(time_slots.size()-1) + 1;
+            if (TimeSlot.toString(start_time).compareTo(TimeSlot.toString(end_time)) > 0)
+                failedEvents.add(event);
+            System.out.println(event);
+        });
+
+        failedEvents.forEach(System.out::println);
+        if (failedEvents.isEmpty())
+            System.out.println("Test passed");
+
+        assertTrue(failedEvents.isEmpty());
+    }
+
+    @Test
+    void noEventEndsAt8() {
+        List<Event> failedEvents = new LinkedList<>();
+
+        schedule.eventList().forEach(event -> {
+            List<Integer> time_slots = event.time_slots();
+            int end = time_slots.get(time_slots.size()-1);
+            String end_time = TimeSlot.toString(end + 1);
+            boolean passed = !end_time.equals(TimeSlot.toString(1));
+            if (!passed)
+                failedEvents.add(event);
+        });
+
+        failedEvents.forEach(System.out::println);
+
+        if (failedEvents.isEmpty())
+            System.out.println("Test passed");
+        else
+            assert false;
     }
 }

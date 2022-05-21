@@ -2,10 +2,11 @@ package com.SCIA.Schedule;
 
 public class TimeSlot {
 
-    protected static final int START_TIME = 10;
-    protected static final int HOURS_PER_DAY = 9;
-    protected static final int NUM_TIME_SLOTS_PER_DAY = 108;
+    protected static final int START_TIME = 8;
+    protected static final int END_TIME = 19;
+    protected static final int HOURS_PER_DAY = END_TIME - START_TIME;
     public static final int INCREMENT = 5;
+    protected static final int NUM_TIME_SLOTS_PER_DAY = HOURS_PER_DAY * 60 / INCREMENT;
 
     //get day by timeslot
     public static int getDay(int time_slot) {
@@ -48,7 +49,7 @@ public class TimeSlot {
 
         int hour = getHour(time_slot);
 
-        if (hour < START_TIME + HOURS_PER_DAY)
+        if (hour < END_TIME)
             return false;
         return true;
     }
