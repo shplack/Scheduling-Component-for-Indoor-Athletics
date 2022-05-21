@@ -26,7 +26,7 @@ public class SimulatedAnnealing {
         Schedule schedule = ScheduleMaker.makeSchedule(competition_groups);
 
         double heat = InitialHeat.initialHeat(schedule.eventList());
-        double coolingFactor = 0.999;
+        double coolingFactor = 0.99;
         int i = 0;
 
         while (true) {
@@ -34,7 +34,7 @@ public class SimulatedAnnealing {
             List<Event> mutatedList = Mutation.MutationFunction(copySchedule.eventList());
 
 
-            System.out.println("New conflics: " + newConflicts + " Old conflicts" + oldConflicts);
+            System.out.println("New conflicts: " + newConflicts + " Old conflicts: " + oldConflicts);
             if (newConflicts == 0)
             {
                 schedule = copySchedule;
@@ -46,22 +46,22 @@ public class SimulatedAnnealing {
             double probability = Probability.getProbability(heat, score);
             double random = Math.random()*(1);
 
-            if(i == 20) {
-                newConflicts = Judgement.getConflicts(mutatedList);
-                oldConflicts = Judgement.getConflicts(schedule.eventList());
-                i = 0;
+            //if(i == 20) {
+            newConflicts = Judgement.getConflicts(mutatedList);
+            oldConflicts = Judgement.getConflicts(schedule.eventList());
+            //i = 0;
 
-                if (newConflicts < oldConflicts)
+            if (newConflicts < oldConflicts)
+                schedule = copySchedule;
+            else {
+                if (random < probability)
                     schedule = copySchedule;
-                else {
-                    if (random < probability)
-                        schedule = copySchedule;
-                }
-                heat = heat * coolingFactor;
-                System.out.println("This is heat: " + heat);
             }
+            heat = heat * coolingFactor;
+            System.out.println("This is heat: " + heat);
+            //}
 
-            i++;
+            //i++;
         }
         return schedule;
     }
