@@ -14,8 +14,7 @@ import com.SCIA.Schedule.TimeSlot;
 
 import java.util.*;
 
-import static com.SCIA.Competitions.Trials.Trial.AWARD;
-import static com.SCIA.Competitions.Trials.Trial.TRIAL;
+import static com.SCIA.Competitions.Trials.Trial.*;
 
 public class EventMaker {
     static Map<Station, Integer> stationTimes = new HashMap<>(Station.values().length);
@@ -146,7 +145,7 @@ public class EventMaker {
         return events;
     }
 
-    private static ArrayList<Event> makeQualifyingEvent(CompetitionGroup competitionGroup, Trial trial, Station station) {
+    private static ArrayList<Event> makeQualifyingEvent(CompetitionGroup competitionGroup, Station station) {
         ArrayList<Event> events = new ArrayList<>();
         ArrayList<AthleteRecord> athleteRecords = competitionGroup.athleteRecordsList();
         Discipline discipline = competitionGroup.discipline();
@@ -165,7 +164,7 @@ public class EventMaker {
         }
 
         athleteGroups.forEach(group -> {
-            Event event = new Event(null, group, station, discipline, trial, ageGroup, competitionGroup.gender());
+            Event event = new Event(null, group, station, discipline, QUALIFYING, ageGroup, competitionGroup.gender());
             assignTimeSlot(event, competitionGroup);
             events.add(event);
         });
@@ -173,35 +172,35 @@ public class EventMaker {
         return events;
     }
 
-    public static Event makeTrialEvent(CompetitionGroup competitionGroup, Trial trial, Station station) {
-        List<Athlete> athletes = competitionGroup.athleteRecordsList().stream().map(AthleteRecord::getAthlete).toList();
-        Discipline discipline = competitionGroup.discipline();
-        AgeGroup ageGroup = competitionGroup.age_group();
-        Gender gender = competitionGroup.gender();
+    public static List<Event> makeTrialEvents(List<CompetitionGroup> competitionGroups) {
+        List<Event> events = new ArrayList<>(competitionGroups.size());
 
-        Event event = new Event(null, athletes, station, discipline, trial, ageGroup, gender);
-        assignTimeSlot(event, competitionGroup);
+        Station[] stations;
+        for (int i = 0; i < competitionGroups.size(); i++) {
+            CompetitionGroup group = competitionGroups.get(i);
+            List<Athlete> athletes = group.athleteRecordsList().stream().map(AthleteRecord::getAthlete).toList();
+            Discipline discipline = group.discipline();
+            stations = discipline.getStations();
+            Station station = whichStation(stations);
+            Event event = new Event(null, athletes, station, discipline, TRIAL, group.age_group(), group.gender());
+            assignTimeSlot(event, group);
+            events.add(event);
+        }
 
-        return event;
+        return events;
     }
 
-    public static List<Event> makeEvents(CompetitionGroup competitionGroup) {
-        List<Event> events = new LinkedList<>();
+    public static List<Event> makeRunningEvents(List<CompetitionGroup> competitionGroups) {
+        Trial[] trials = Trials.runningTrials();
+        List<Event> events = new ArrayList<>(trials.length * competitionGroups.size());
 
-        Trial[] trials = competitionGroup.discipline().getTrials();
-        Station[] stations = competitionGroup.discipline().getStations();
-
-        for (int i = 0; i < trials.length; i++) {
-            Station station = whichStation(stations);
-
-            Trial trial = trials[i];
-            if (!trial.canHazTrial(station, competitionGroup.athleteRecordsList().size()))
-                continue;
-
-            events.addAll(switch(trial) {
-                case QUALIFYING -> makeQualifyingEvent(competitionGroup, trial, station);
-                case QUARTER_FINAL, SEMI_FINAL, FINAL -> makeXFinalsEvent(competitionGroup, trial, station);
-                default -> List.of(makeTrialEvent(competitionGroup, trial, station));
+        for (Trial trial : trials) {
+            competitionGroups.forEach(competitionGroup -> {
+                Station station = whichStation(competitionGroup.discipline().getStations());
+                if (trial == QUALIFYING)
+                    events.addAll(makeQualifyingEvent(competitionGroup, station));
+                else
+                    events.addAll(makeXFinalsEvent(competitionGroup, trial, station));
             });
         }
 
