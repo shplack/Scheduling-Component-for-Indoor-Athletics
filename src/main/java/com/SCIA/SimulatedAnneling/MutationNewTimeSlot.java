@@ -6,8 +6,9 @@ import java.util.List;
 
 public class MutationNewTimeSlot {
     /*
-    public static List<Event> NewTimeSlot(List<Event> eventList)    {
-            for (Event event : eventList) {
+    public static List<List<Event>> NewTimeSlot(List<Event> eventList)    {
+        List<List<Event>> listOfListOfEvents;
+            for (Event event1 : eventList) {
                 for (Event event2 : eventList)
 
             }
@@ -15,4 +16,6 @@ public class MutationNewTimeSlot {
     }
 
      */
+
+
 }

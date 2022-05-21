@@ -53,10 +53,13 @@ public class SimulatedAnnealing {
 
             if (newConflicts < oldConflicts)
                 schedule = copySchedule;
+            /*
             else {
                 if (random < probability)
                     schedule = copySchedule;
             }
+
+             */
             heat = heat * coolingFactor;
             System.out.println("This is heat: " + heat);
             //}

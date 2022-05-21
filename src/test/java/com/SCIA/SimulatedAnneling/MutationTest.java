@@ -36,7 +36,7 @@ class MutationTest {
     void setUp() {
         Event event = new Event(
                 new ArrayList<>(List.of(1)),
-                new ArrayList<>(Arrays.asList(new Athlete(
+                new ArrayList<>(List.of(new Athlete(
                         1,
                         "ÖSK",
                         "Alexander",
@@ -46,7 +46,7 @@ class MutationTest {
                 ))),
                 Stations.Station.LONG_TRIPLE_I,
                 Disciplines.Discipline.TRIPLE_JUMP,
-                Trials.Trial.TRIAL_I,
+                Trials.Trial.TRIAL,
                 AgeGroups.AgeGroup.NINETEEN_AND_OVER,
                 Gender.MALE
         );
@@ -63,7 +63,7 @@ class MutationTest {
                 ))),
                 Stations.Station.LONG_TRIPLE_I,
                 Disciplines.Discipline.TRIPLE_JUMP,
-                Trials.Trial.TRIAL_I,
+                Trials.Trial.TRIAL,
                 AgeGroups.AgeGroup.NINETEEN_AND_OVER,
                 Gender.MALE
         );
@@ -80,7 +80,7 @@ class MutationTest {
                 ))),
                 Stations.Station.LONG_TRIPLE_I,
                 Disciplines.Discipline.TRIPLE_JUMP,
-                Trials.Trial.TRIAL_I,
+                Trials.Trial.TRIAL,
                 AgeGroups.AgeGroup.NINETEEN_AND_OVER,
                 Gender.MALE
         );
@@ -98,7 +98,7 @@ class MutationTest {
                 ))),
                 Stations.Station.POLE_VAULT,
                 Disciplines.Discipline.POLE_VAULT,
-                Trials.Trial.TRIAL_I,
+                Trials.Trial.TRIAL,
                 AgeGroups.AgeGroup.NINETEEN_AND_OVER,
                 Gender.MALE
         );
@@ -115,7 +115,7 @@ class MutationTest {
                 ))),
                 Stations.Station.POLE_VAULT,
                 Disciplines.Discipline.POLE_VAULT,
-                Trials.Trial.TRIAL_I,
+                Trials.Trial.TRIAL,
                 AgeGroups.AgeGroup.NINETEEN_AND_OVER,
                 Gender.MALE
         );

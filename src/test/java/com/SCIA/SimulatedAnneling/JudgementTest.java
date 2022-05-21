@@ -36,7 +36,7 @@ class JudgementTest {
                 ))),
                 Stations.Station.LONG_TRIPLE_I,
                 Disciplines.Discipline.TRIPLE_JUMP,
-                Trials.Trial.TRIAL_I,
+                Trials.Trial.TRIAL,
                 AgeGroups.AgeGroup.NINETEEN_AND_OVER,
                 Gender.MALE
         );
@@ -53,7 +53,7 @@ class JudgementTest {
                 ))),
                 Stations.Station.LONG_TRIPLE_II,
                 Disciplines.Discipline.TRIPLE_JUMP,
-                Trials.Trial.TRIAL_I,
+                Trials.Trial.TRIAL,
                 AgeGroups.AgeGroup.NINETEEN_AND_OVER,
                 Gender.MALE
         );
@@ -70,7 +70,7 @@ class JudgementTest {
                 ))),
                 Stations.Station.LONG_TRIPLE_II,
                 Disciplines.Discipline.TRIPLE_JUMP,
-                Trials.Trial.TRIAL_I,
+                Trials.Trial.TRIAL,
                 AgeGroups.AgeGroup.NINETEEN_AND_OVER,
                 Gender.MALE
         );
@@ -88,7 +88,7 @@ class JudgementTest {
                 ))),
                 Stations.Station.POLE_VAULT,
                 Disciplines.Discipline.POLE_VAULT,
-                Trials.Trial.TRIAL_I,
+                Trials.Trial.TRIAL,
                 AgeGroups.AgeGroup.NINETEEN_AND_OVER,
                 Gender.MALE
         );
@@ -105,7 +105,7 @@ class JudgementTest {
                 ))),
                 Stations.Station.POLE_VAULT,
                 Disciplines.Discipline.POLE_VAULT,
-                Trials.Trial.TRIAL_I,
+                Trials.Trial.TRIAL,
                 AgeGroups.AgeGroup.NINETEEN_AND_OVER,
                 Gender.MALE
         );
