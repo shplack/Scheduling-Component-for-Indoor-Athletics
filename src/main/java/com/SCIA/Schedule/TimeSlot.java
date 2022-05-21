@@ -2,6 +2,13 @@ package com.SCIA.Schedule;
 
 public class TimeSlot {
 
+    public TimeSlot(int startTime, int duration){
+        this.startTime = startTime;
+        this.duration = duration;
+    }
+
+    private final int startTime;
+    private final int duration;
     protected static final int START_TIME = 8;
     protected static final int END_TIME = 19;
     protected static final int HOURS_PER_DAY = END_TIME - START_TIME;
@@ -21,7 +28,7 @@ public class TimeSlot {
         return (getRelativeTimeSlot(time_slot) * INCREMENT - INCREMENT) / 60 + START_TIME;
     }
 
-    private static int getMinutes(int time_slot) {
+    static int getMinutes(int time_slot) {
         return (getRelativeTimeSlot(time_slot) * INCREMENT - INCREMENT) % 60;
     }
 
@@ -69,5 +76,35 @@ public class TimeSlot {
         int last_time_slot = day * NUM_TIME_SLOTS_PER_DAY;
         return last_time_slot;
     }
+    //------------------------------------------------------------------------------------------------------------
+    public static String getEndTime(int startTid, int dur){
+        if (getRelativeTimeSlot(startTid) == NUM_TIME_SLOTS_PER_DAY){
+            return toString(END_TIME,0);
+        }
 
+        int end_time = getRelativeTimeSlot(startTid + dur);
+        if (end_time == NUM_TIME_SLOTS_PER_DAY){
+            return toString(END_TIME,0);
+        }
+
+        return toString(end_time);
+
+    }
+    public String getStartTime(){
+        return toString(startTime);
+    }
+
+
+   public String getEndTime(){
+        if (getRelativeTimeSlot(startTime) == NUM_TIME_SLOTS_PER_DAY){
+            return toString(END_TIME,0);
+        }
+
+        int end_time = getRelativeTimeSlot(startTime+duration);
+        if (end_time == NUM_TIME_SLOTS_PER_DAY){
+            return toString(END_TIME,0);
+        }
+
+        return toString(end_time);
+    }
 }
