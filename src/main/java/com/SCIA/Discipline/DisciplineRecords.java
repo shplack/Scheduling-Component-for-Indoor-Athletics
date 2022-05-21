@@ -29,12 +29,23 @@ public class DisciplineRecords extends HashMap<Disciplines.Discipline, ArrayList
         return records.get(index);
     }
 
-    public Float getBestRecord(Disciplines.Discipline discipline) {
-        return getRecord(discipline, 0);
+    public static void sortRecords(List<Float> records, boolean lowerIsBetter) {
+        records.sort((record1, record2) -> {
+            int delta = record1.compareTo(record2);
+            return delta * (lowerIsBetter ? -1 : 1);
+        });
     }
 
-    public Float getWorstRecord(Disciplines.Discipline discipline) {
-        return getRecord(discipline, get(discipline).size() - 1);
+    public float getBestRecord(Disciplines.Discipline discipline) {
+        ArrayList<Float> records = new ArrayList<>(getRecords(discipline));
+        sortRecords(records, discipline.isMeasuredInTime());
+        return records.get(0);
+    }
+
+    public float getWorstRecord(Disciplines.Discipline discipline) {
+        ArrayList<Float> records = new ArrayList<>(getRecords(discipline));
+        sortRecords(records, discipline.isMeasuredInTime());
+        return records.get(records.size() - 1);
     }
 
     public List<Disciplines.Discipline> getDisciplines(boolean sorted, boolean ascending) {
@@ -58,7 +69,7 @@ public class DisciplineRecords extends HashMap<Disciplines.Discipline, ArrayList
         return getDisciplines(false);
     }
 
-    public void addRecord(Disciplines.Discipline discipline, Float record) {
+    public void addRecord(Disciplines.Discipline discipline, float record) {
         if (get(discipline) == null)
             put(discipline, new ArrayList<>());
 

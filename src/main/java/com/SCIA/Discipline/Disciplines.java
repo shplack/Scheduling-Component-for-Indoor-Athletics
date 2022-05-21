@@ -21,9 +21,7 @@ public class Disciplines {
             return switch(this) {
                 case SPRINT60M, SPRINT200M, MIDDLE800M, MIDDLE1500M, LONG3000M, HURDLE60M ->
                     new Trial[] { Trial.QUALIFYING, Trial.QUARTER_FINAL, Trial.SEMI_FINAL, Trial.FINAL };
-                case LONG_JUMP, TRIPLE_JUMP, HIGH_JUMP, POLE_VAULT ->
-                    new Trial[] { Trial.TRIAL_I, Trial.TRIAL_II };
-                case SHOT_PUT -> new Trial[] { Trial.TRIAL_I, Trial.TRIAL_II, Trial.TRIAL_III, Trial.TRIAL_IV };
+                default -> new Trial[] { Trial.TRIAL };
             };
         }
 
@@ -46,8 +44,27 @@ public class Disciplines {
             };
         }
 
-        public boolean isIncremental() {
-            return this == HIGH_JUMP || this == POLE_VAULT;
+        public boolean isRunningDiscipline() {
+            return switch (this) {
+                case SPRINT60M, SPRINT200M, MIDDLE800M, MIDDLE1500M, LONG3000M, HURDLE60M -> true;
+                default -> false;
+            };
         }
+
+        public boolean isTrialDiscipline() {
+            return switch (this) {
+                case LONG_JUMP, TRIPLE_JUMP, HIGH_JUMP, POLE_VAULT, SHOT_PUT -> true;
+                default -> false;
+            };
+        }
+
+        public int duration() { // in minutes
+            return switch(this) {
+                case LONG_JUMP, TRIPLE_JUMP -> 2;
+                case HIGH_JUMP, POLE_VAULT -> 3;
+                default -> 1;
+            };
+        }
+
     }
 }

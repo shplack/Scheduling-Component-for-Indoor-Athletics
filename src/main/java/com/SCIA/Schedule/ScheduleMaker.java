@@ -1,17 +1,12 @@
 package com.SCIA.Schedule;
 
-import com.SCIA.Athlete.AthleteRecord;
 import com.SCIA.Competitions.CompetitionGroup;
-import com.SCIA.Discipline.Disciplines;
-import com.SCIA.Discipline.Stations;
 import com.SCIA.Schedule.Event.Event;
 import com.SCIA.Schedule.Event.EventMaker;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ScheduleMaker {
     public static Schedule makeSchedule(List<CompetitionGroup> competitionGroups) {
@@ -23,7 +18,7 @@ public class ScheduleMaker {
                     ar -> ar.getDisciplineRecords().getBestRecord(competitionGroup.discipline())
             ));
 
-            if (!competitionGroup.discipline().isIncremental())
+            if (!competitionGroup.discipline().isTrialDiscipline())
                 eventList.addAll(EventMaker.makeEvents(competitionGroup));
             else
                 incrementalDisciplines.add(competitionGroup);

@@ -13,7 +13,7 @@ import static com.SCIA.Competitions.Trials.Trial;
 import static com.SCIA.Discipline.Disciplines.Discipline;
 import static com.SCIA.Discipline.Stations.Station;
 
-public record Event(ArrayList<Integer> time_slots, ArrayList<Athlete> athletes, Station station, Discipline discipline, Trial trial,
+public record Event(ArrayList<Integer> time_slots, List<Athlete> athletes, Station station, Discipline discipline, Trial trial,
                     AgeGroup age_group, Gender gender) {
 
     public Event {
@@ -59,7 +59,7 @@ public record Event(ArrayList<Integer> time_slots, ArrayList<Athlete> athletes, 
     }
 
     public Event deepCopy() {
-        return new Event(new ArrayList<>(time_slots), new ArrayList<>(athletes), station, discipline, trial, age_group, gender);
+        return new Event(new ArrayList<>(time_slots), List.copyOf(athletes), station, discipline, trial, age_group, gender);
     }
 
     public boolean equals(Event event) {

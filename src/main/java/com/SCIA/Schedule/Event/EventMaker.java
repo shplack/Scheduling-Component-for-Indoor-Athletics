@@ -18,7 +18,10 @@ public class EventMaker {
     static Map<Station, Integer> stationTimes = new HashMap<>(Station.values().length);
 
     private static int calculateIncrementalEventDuration(Event event) {
-        return event.athletes().size() * 5 / TimeSlot.INCREMENT;
+        int numAthletes = event.athletes().size();
+        int minutesPerAthlete = event.discipline().duration();
+        int duration = (int) Math.ceil((double) numAthletes * minutesPerAthlete / TimeSlot.INCREMENT);
+        return duration;
     }
 
     private static int calculateNonIncrementalEventDuration(CompetitionGroup competitionGroup) {
@@ -38,6 +41,7 @@ public class EventMaker {
     private static void assignTimeSlot(Event event, CompetitionGroup competitionGroup) {
         int last_booked;
         int new_booked;
+
         if (!stationTimes.containsKey(event.station())) {
             new_booked = 1;
         } else {
@@ -46,20 +50,17 @@ public class EventMaker {
         }
 
         int duration =  event.trial() == AWARD ? 1 :
-                competitionGroup.discipline().isIncremental() ? calculateIncrementalEventDuration(event) :
+                competitionGroup.discipline().isTrialDiscipline() ? calculateIncrementalEventDuration(event) :
                 calculateNonIncrementalEventDuration(competitionGroup);
 
         assert duration < TimeSlot.getLastTimeSlot();
 
-        while (TimeSlot.pastLastTimeSlot(new_booked, duration)) {
+        while (TimeSlot.pastLastTimeSlot(new_booked, duration))
             new_booked += 1;
-        }
 
         List<Integer> time_slots = new ArrayList<>(duration);
         for (int i = new_booked; i < duration + new_booked; i++)
             time_slots.add(i);
-
-
 
         boolean sameDay = TimeSlot.getDay(time_slots.get(0)) == TimeSlot.getDay(time_slots.get(time_slots.size()-1));
         assert sameDay;
@@ -116,6 +117,7 @@ public class EventMaker {
         return events;
     }
 
+    /*
     public static List<Event> makeIncrementalEvents(List<CompetitionGroup> incrementalDisciplines) {
         List<Event> events = new ArrayList<>(incrementalDisciplines.size());
         Map<Discipline, List<CompetitionGroup>> disciplineCompetitionGroupMap = new HashMap<>();
@@ -146,6 +148,39 @@ public class EventMaker {
 
         return events;
     }
+    */
+
+    public static List<Event> makeIncrementalEvents(List<CompetitionGroup> shotPutGroups) {
+        List<Event> events = new ArrayList<>(shotPutGroups.size());
+
+        Station[] stations;
+        for (int i = 0; i < shotPutGroups.size(); i++) {
+            CompetitionGroup group = shotPutGroups.get(i);
+            List<Athlete> athletes = group.athleteRecordsList().stream().map(AthleteRecord::getAthlete).toList();
+            Discipline discipline = group.discipline();
+            stations = discipline.getStations();
+            Station station = stations[i % stations.length];
+            Event event = new Event(null, athletes, station, discipline, TRIAL, group.age_group(), group.gender());
+            assignTimeSlot(event, group);
+            events.add(event);
+        }
+
+        return events;
+    }
+
+/*
+    public static List<Event> makeIncrementalEvents(List<CompetitionGroup> incrementalDisciplines) {
+        List<Event> events = new LinkedList<>();
+        List<CompetitionGroup> shotPutGroups = incrementalDisciplines.stream().filter(competitionGroup -> competitionGroup.discipline() == Discipline.SHOT_PUT).toList();
+        events.addAll(makeIncrementalEvents(shotPutGroups));
+        int minutesPerAthlete = 1;
+
+
+
+
+        return events;
+    }
+*/
 
     private static List<Event> makeNonIncrementalEvents(CompetitionGroup competitionGroup, Trials.Trial trial, Station station) {
         List<Event> events = new ArrayList<>(competitionGroup.athleteRecordsList().size());
