@@ -102,16 +102,21 @@ class ScheduleTest {
     }
 
     boolean hasConflict(Event event1, Event event2) {
+        if (event1.trial().mustHappenBefore(event2.trial())) {
+            if (event1.timeSlot().compareTo(event2.timeSlot()) > 0)
+                return true;
+        }
+
         if (event1.age_group() != event2.age_group())
             return false;
 
-        if (event1.discipline().isRunningDiscipline() && event2.discipline().isRunningDiscipline()) {
-            if (event1.trial() != Trials.Trial.QUALIFYING && event2.trial() != Trials.Trial.QUALIFYING) {
-                if (event1.trial() == event2.trial() && (event1.trial() != AWARD && event2.trial() != AWARD)) {
-                    return false;
-                }
-            }
-        }
+//        if (event1.discipline().isRunningDiscipline() && event2.discipline().isRunningDiscipline()) {
+//            if (event1.trial() != Trials.Trial.QUALIFYING && event2.trial() != Trials.Trial.QUALIFYING) {
+//                if (event1.trial() == event2.trial() && (event1.trial() != AWARD && event2.trial() != AWARD)) {
+//                    return false;
+//                }
+//            }
+//        }
 
         Set<Athlete> intersectingAthletes = event1.athletes().stream().distinct().filter(event2.athletes()::contains)
                 .collect(Collectors.toSet());
@@ -131,12 +136,10 @@ class ScheduleTest {
             for (int j = i + 1; j < eventList.size(); j++) {
                 Event event1 = eventList.get(i);
                 Event event2 = eventList.get(j);
-                if (hasConflict(event1, event2)) {
-                    if (hasConflict(event2, event1)) {
-                        if (!conflictingEvents.containsKey(event1))
-                            conflictingEvents.put(event1, new LinkedList<>());
-                        conflictingEvents.get(event1).add(event2);
-                    }
+                if (hasConflict(event2, event1)) {
+                    if (!conflictingEvents.containsKey(event1))
+                        conflictingEvents.put(event1, new LinkedList<>());
+                    conflictingEvents.get(event1).add(event2);
                 }
             }
         }

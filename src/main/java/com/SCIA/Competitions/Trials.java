@@ -10,14 +10,22 @@ public class Trials {
         SEMI_FINAL,
         FINAL,
         TRIAL,
-
         AWARD;
 
-        public enum Order {
-            HIGHER,
-            EQUAL,
-            LOWER
+        public boolean mustHappenBefore(Trial trial) {
+            if (this == trial)
+                return false;
+
+            if (this == AWARD)
+                return this.ordinal() < trial.ordinal();
+
+            if (this != FINAL && trial.ordinal() <= FINAL.ordinal())
+                return this.ordinal() < trial.ordinal();
+
+            return this.ordinal() < trial.ordinal();
         }
+
+
 
         public int getNumGroups() {
             return switch(this) {

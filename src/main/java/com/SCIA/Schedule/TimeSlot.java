@@ -181,4 +181,8 @@ public class TimeSlot {
     public boolean equals(TimeSlot timeSlot) {
         return this.timeSlot == timeSlot.timeSlot && this.duration == timeSlot.duration;
     }
+
+    public int compareTo(TimeSlot timeSlot) {
+        return this.timeSlot + duration - timeSlot.timeSlot;
+    }
 }

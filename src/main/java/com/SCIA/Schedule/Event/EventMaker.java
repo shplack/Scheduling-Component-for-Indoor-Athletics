@@ -36,27 +36,45 @@ public class EventMaker {
     }
 
     private static boolean hasConflict(Event eventToCheck, Event event, TimeSlot timeSlot) {
+        if (event.trial() == AWARD)
+            System.out.print("");
         if (!canConflict(eventToCheck, event))
             return false;
+
+        if (eventToCheck.trial().mustHappenBefore(event.trial())) {
+            if (eventToCheck.timeSlot().compareTo(timeSlot) > 0) {
+                return true;
+            }
+        }
+
         return eventToCheck.timeSlot().conflictsWith(timeSlot);
     }
 
     static boolean hasConflict(Event event1, Event event2) {
         if (!canConflict(event1, event2)) return false;
+
+        if (event1.trial().mustHappenBefore(event2.trial())) {
+            if (event1.timeSlot().compareTo(event2.timeSlot()) > 0) {
+                return true;
+            }
+        }
+
         return event1.timeSlot().conflictsWith(event2.timeSlot());
     }
 
     private static boolean canConflict(Event event1, Event event2) {
+        if (event1.trial().mustHappenBefore(event2.trial()))
+            return true;
         if (event1.age_group() != event2.age_group())
             return false;
 
-        if (event1.discipline().isRunningDiscipline() && event2.discipline().isRunningDiscipline()) {
-            if (event1.trial() != Trial.QUALIFYING && event2.trial() != Trial.QUALIFYING) {
-                if (event1.trial() == event2.trial() && (event1.trial() != AWARD && event2.trial() != AWARD)) {
-                    return false;
-                }
-            }
-        }
+//        if (event1.discipline().isRunningDiscipline() && event2.discipline().isRunningDiscipline()) {
+//            if (event1.trial() != Trial.QUALIFYING && event2.trial() != Trial.QUALIFYING) {
+//                if (event1.trial() == event2.trial() && (event1.trial() != AWARD && event2.trial() != AWARD)) {
+//                    return false;
+//                }
+//            }
+//        }
 
         Set<Athlete> intersectingAthletes = event1.athletes().stream().distinct().filter(event2.athletes()::contains)
                 .collect(Collectors.toSet());
@@ -71,7 +89,7 @@ public class EventMaker {
         }
 
         for (Event check : eventList) {
-            if (hasConflict(event, check))
+            if (hasConflict(check, event))
                     return true;
         }
 
@@ -82,7 +100,7 @@ public class EventMaker {
 
         TimeSlot next_booked;
         if (last_tried == null)
-            next_booked = stationTimes.getOrDefault(event.station(), new TimeSlot(1, 1));
+            next_booked = stationTimes.getOrDefault(event.station(), new TimeSlot(1, duration));
         else
             next_booked = new TimeSlot(last_tried, duration);
         next_booked.setTimeSlot(next_booked.getTimeSlot() + 1);
