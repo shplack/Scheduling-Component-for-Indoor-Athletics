@@ -14,19 +14,19 @@ public class Judgement {
     public static int getConflicts(List<Event> eventList)  {
         int conflicts = 0;
         //System.out.println("This is size: "+ eventList.size());
-        for (int i = 0; i < eventList.size(); i++) {
-            for (int j = 0; j < eventList.size(); j++) {
-                for (int k = 0; k < eventList.get(i).time_slots().size(); k++)
-                    for (int l = 0; l < eventList.get(j).time_slots().size(); l++)
-                        if (Objects.equals(eventList.get(i).time_slots().get(k), eventList.get(j).time_slots().get(l)))
-                            for (int o = 0; o < eventList.get(i).athletes().size(); o++) {
-                                for (int p = 0; p < eventList.get(j).athletes().size(); p++) {
-                                    if (eventList.get(i) != eventList.get(j)) {
-                                        if ((eventList.get(i).athletes().get(o).id()) == eventList.get(j).athletes().get(p).id())
+        for (int First_Value_To_Iterate_List = 0; First_Value_To_Iterate_List < eventList.size(); First_Value_To_Iterate_List++) {
+            for (int Second_value_To_Iterate_List = 0; Second_value_To_Iterate_List < eventList.size(); Second_value_To_Iterate_List++) {
+                for (int First_Value_To_Iterate_Timeslots = 0; First_Value_To_Iterate_Timeslots < eventList.get(First_Value_To_Iterate_List).time_slots().size(); First_Value_To_Iterate_Timeslots++)
+                    for (int Second_Value_To_Iterate_Timeslots = 0; Second_Value_To_Iterate_Timeslots < eventList.get(Second_value_To_Iterate_List).time_slots().size(); Second_Value_To_Iterate_Timeslots++)
+                        if (Objects.equals(eventList.get(First_Value_To_Iterate_List).time_slots().get(First_Value_To_Iterate_Timeslots), eventList.get(Second_value_To_Iterate_List).time_slots().get(Second_Value_To_Iterate_Timeslots)))
+                            for (int First_Value_To_Iterate_Athletes = 0; First_Value_To_Iterate_Athletes < eventList.get(First_Value_To_Iterate_List).athletes().size(); First_Value_To_Iterate_Athletes++) {
+                                for (int Second_Value_To_Iterate_Athletes = 0; Second_Value_To_Iterate_Athletes < eventList.get(Second_value_To_Iterate_List).athletes().size(); Second_Value_To_Iterate_Athletes++) {
+                                    if (eventList.get(First_Value_To_Iterate_List) != eventList.get(Second_value_To_Iterate_List)) {
+                                        if ((eventList.get(First_Value_To_Iterate_List).athletes().get(First_Value_To_Iterate_Athletes).id()) == eventList.get(Second_value_To_Iterate_List).athletes().get(Second_Value_To_Iterate_Athletes).id())
                                         {
-                                            //System.out.println("This is i: " + i);
-                                            //int first_athlete = eventList.get(i).athletes().get(o).id();
-                                            //int second_athlete = eventList.get(j).athletes().get(p).id();
+                                            //System.out.println("This is First_Value_To_Iterate_List: " + First_Value_To_Iterate_List);
+                                            //int first_athlete = eventList.get(First_Value_To_Iterate_List).athletes().get(First_Value_To_Iterate_Athletes).id();
+                                            //int second_athlete = eventList.get(Second_value_To_Iterate_List).athletes().get(Second_Value_To_Iterate_Athletes).id();
                                             //System.out.println("first athlete: " + first_athlete + " and second athlete: " + second_athlete);
                                             conflicts++;
                                             //System.out.println("This is conflicts: " + conflicts);

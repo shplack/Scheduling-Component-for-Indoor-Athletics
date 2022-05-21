@@ -50,18 +50,25 @@ public record Event(ArrayList<Integer> time_slots, ArrayList<Athlete> athletes, 
         // same age group, station, gender, not same event
         if (this.equals(event))
             return false;
+        /*
         if (this.age_group != event.age_group)
             return false;
+         */
 
         if (this.station != event.station) {
             if (!((this.station == LONG_TRIPLE_I || this.station == LONG_TRIPLE_II) && (event.station == LONG_TRIPLE_I || event.station == LONG_TRIPLE_II)))   {
                 return false;
             }
         }
+        /*
         if (this.gender != event.gender)
             return false;
 
+
+         */
         return true;
+
+
     }
 
     public Event deepCopy() {
