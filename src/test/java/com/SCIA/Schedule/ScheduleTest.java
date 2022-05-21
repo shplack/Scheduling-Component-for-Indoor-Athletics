@@ -11,9 +11,7 @@ import org.junit.jupiter.api.ClassOrderer;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Logger;
 
 import static com.SCIA.Competitions.Trials.Trial.Order.EQUAL;
@@ -49,6 +47,7 @@ class ScheduleTest {
         System.out.println(schedule.inOrder());
     }
 
+/*
     @Test
     void inOrder() {
         List<Event> events = schedule.eventList();
@@ -58,6 +57,7 @@ class ScheduleTest {
             assertTrue(order == LOWER || order == EQUAL);
         }
     }
+*/
 
     @Test
     void allEventsEndOnTheSameDayStarted() {
@@ -120,5 +120,55 @@ class ScheduleTest {
             System.out.println("Test passed");
         else
             assert false;
+    }
+
+    boolean hasConflict(Event event1, Event event2) {
+        List<Integer> time_slots1 = event1.time_slots();
+        int start1 = time_slots1.get(0);
+        int end1 = time_slots1.get(time_slots1.size()-1);
+
+        List<Integer> time_slots2 = event2.time_slots();
+        int start2 = time_slots2.get(0);
+        int end2 = time_slots2.get(time_slots2.size()-1);
+
+        if (start1 >= start2 && start1 <= end2)
+            return true;
+        if (end1 >= start2 && end1 <= end2)
+            return true;
+        if (start2 >= start1 && start2 <= end1)
+            return true;
+        if (end2 >= start1 && end2 <= end1)
+            return true;
+
+        return false;
+    }
+
+    @Test
+    void noConflicts() {
+        List<Event> eventList = new ArrayList<>(schedule.eventList());
+        Map<Event, List<Event>> conflictingEvents = new HashMap<>();
+
+        for (Event event1 : eventList) {
+            eventList.forEach(event2 -> {
+                event2.athletes().forEach(athlete -> {
+                    if (!event1.equals(event2)) {
+                        if (event1.athletes().contains(athlete)) {
+                            if (hasConflict(event1, event2)) {
+                                if (!conflictingEvents.containsKey(event1))
+                                    conflictingEvents.put(event1, new LinkedList<>());
+                                conflictingEvents.get(event1).add(event2);
+                            }
+                        }
+                    }
+                });
+            });
+        }
+
+        conflictingEvents.forEach((event1, event2) -> {
+            System.out.println("Conflicting events: " + event1 + " | " + event2);
+        });
+
+        assertTrue(conflictingEvents.isEmpty());
+
     }
 }

@@ -35,7 +35,7 @@ class EventTest {
                 ))),
                 Station.HIGH_JUMP_I,
                 Discipline.HIGH_JUMP,
-                Trial.TRIAL_I,
+                Trial.TRIAL,
                 AgeGroups.AgeGroup.EIGHT_AND_UNDER,
                 Gender.FEMALE
         );
