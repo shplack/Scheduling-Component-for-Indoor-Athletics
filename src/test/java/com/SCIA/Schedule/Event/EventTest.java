@@ -4,6 +4,7 @@ import com.SCIA.Athlete.Athlete;
 import com.SCIA.Athlete.Gender;
 import com.SCIA.Competitions.AgeGroups;
 import com.SCIA.Schedule.Event.Event;
+import com.SCIA.Schedule.TimeSlot;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -24,7 +25,7 @@ class EventTest {
     @BeforeEach
     void setUp() {
         event = new Event(
-                new ArrayList<>(List.of(1, 2, 3)),
+                new TimeSlot(1, 3),
                 new ArrayList<>(List.of(new Athlete(
                         1,
                         "ÖSK",

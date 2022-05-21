@@ -2,28 +2,19 @@ package com.SCIA.Schedule;
 
 import com.SCIA.Athlete.Athlete;
 import com.SCIA.Athlete.AthleteRecord;
-import com.SCIA.Athlete.Gender;
 import com.SCIA.CSV.CSV;
-import com.SCIA.Competitions.AgeGroups;
 import com.SCIA.Competitions.CompetitionGroup;
 import com.SCIA.Competitions.CompetitionGroupsMaker;
 import com.SCIA.Competitions.Trials;
-import com.SCIA.Competitions.Trials.Trial.Order;
-import com.SCIA.Discipline.Disciplines;
-import com.SCIA.Discipline.Stations;
 import com.SCIA.Schedule.Event.Event;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.ClassOrderer;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import static com.SCIA.Competitions.Trials.Trial.AWARD;
-import static com.SCIA.Competitions.Trials.Trial.Order.EQUAL;
-import static com.SCIA.Competitions.Trials.Trial.Order.LOWER;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ScheduleTest {
@@ -62,9 +53,8 @@ class ScheduleTest {
 
         while (i < schedule.eventList().size()) {
             Event event = schedule.eventList().get(i++);
-            int start = event.time_slots().get(0);
-            int end = event.time_slots().get(event.time_slots().size()-1);
-            if (TimeSlot.getDay(start) != TimeSlot.getDay(end))
+            TimeSlot timeSlot = event.timeSlot();
+            if (timeSlot.getDay() != TimeSlot.getDay(timeSlot.getLastTimeSlot()))
                 failedEvents.add(event);
         }
 
@@ -81,10 +71,7 @@ class ScheduleTest {
         List <Event> failedEvents = new LinkedList<>();
 
         schedule.eventList().forEach(event -> {
-            List<Integer> time_slots = event.time_slots();
-            int start_time = time_slots.get(0);
-            int end_time = time_slots.get(time_slots.size()-1) + 1;
-            if (TimeSlot.toString(start_time).compareTo(TimeSlot.toString(end_time)) > 0)
+            if (event.timeSlot().getStartTime().compareTo(event.timeSlot().getEndTime()) > 0)
                 failedEvents.add(event);
             System.out.println(event);
         });
@@ -101,10 +88,7 @@ class ScheduleTest {
         List<Event> failedEvents = new LinkedList<>();
 
         schedule.eventList().forEach(event -> {
-            List<Integer> time_slots = event.time_slots();
-            int end = time_slots.get(time_slots.size()-1);
-            String end_time = TimeSlot.toString(end + 1);
-            boolean passed = !end_time.equals(TimeSlot.toString(1));
+            boolean passed = !event.timeSlot().getEndTime().equals(TimeSlot.toString(1));
             if (!passed)
                 failedEvents.add(event);
         });
@@ -135,24 +119,7 @@ class ScheduleTest {
         if (intersectingAthletes.isEmpty())
             return false;
 
-        List<Integer> time_slots1 = event1.time_slots();
-        int start1 = time_slots1.get(0);
-        int end1 = time_slots1.get(time_slots1.size()-1);
-
-        List<Integer> time_slots2 = event2.time_slots();
-        int start2 = time_slots2.get(0);
-        int end2 = time_slots2.get(time_slots2.size()-1);
-
-        if (start1 >= start2 && start1 <= end2)
-            return true;
-        if (end1 >= start2 && end1 <= end2)
-            return true;
-        if (start2 >= start1 && start2 <= end1)
-            return true;
-        if (end2 >= start1 && end2 <= end1)
-            return true;
-
-        return false;
+        return event1.timeSlot().conflictsWith(event2.timeSlot());
     }
 
     @Test

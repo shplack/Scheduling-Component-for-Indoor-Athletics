@@ -10,14 +10,13 @@ import com.SCIA.Discipline.Disciplines.Discipline;
 import com.SCIA.Discipline.Stations.Station;
 import com.SCIA.Schedule.TimeSlot;
 
-import java.sql.Time;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.SCIA.Competitions.Trials.Trial.*;
 
 public class EventMaker {
-    static Map<Station, Integer> stationTimes = new HashMap<>(Station.values().length);
+    static Map<Station, TimeSlot> stationTimes = new HashMap<>(Station.values().length);
     static List<List<Event>> stationEvents = new ArrayList<>(Station.values().length);
     static {
         for (int i = 0; i < Station.values().length; i++) {
@@ -36,46 +35,15 @@ public class EventMaker {
         return duration;
     }
 
-    private static boolean hasConflict(Event eventToCheck, Event event, int time_slot, int duration) {
+    private static boolean hasConflict(Event eventToCheck, Event event, TimeSlot timeSlot) {
         if (!canConflict(eventToCheck, event))
             return false;
-
-
-        List<Integer> time_slots = eventToCheck.time_slots();
-        int start1 = time_slots.get(0);
-        int end1 = time_slots.get(time_slots.size()-1);
-        int start2 = time_slot;
-        int end2 = time_slot + duration - 1;
-
-        return timeSlotConflict(start1, end1, start2, end2);
-
-    }
-
-    private static boolean timeSlotConflict(int start1, int end1, int start2, int end2) {
-        if (start1 >= start2 && start1 <= end2)
-            return true;
-        if (end1 >= start2 && end1 <= end2)
-            return true;
-        if (start2 >= start1 && start2 <= end1)
-            return true;
-        if (end2 >= start1 && end2 <= end1)
-            return true;
-
-        return false;
+        return eventToCheck.timeSlot().conflictsWith(timeSlot);
     }
 
     static boolean hasConflict(Event event1, Event event2) {
         if (!canConflict(event1, event2)) return false;
-
-        List<Integer> time_slots1 = event1.time_slots();
-        int start1 = time_slots1.get(0);
-        int end1 = time_slots1.get(time_slots1.size()-1);
-
-        List<Integer> time_slots2 = event2.time_slots();
-        int start2 = time_slots2.get(0);
-        int end2 = time_slots2.get(time_slots2.size()-1);
-
-        return timeSlotConflict(start1, end1, start2, end2);
+        return event1.timeSlot().conflictsWith(event2.timeSlot());
     }
 
     private static boolean canConflict(Event event1, Event event2) {
@@ -110,32 +78,14 @@ public class EventMaker {
         return false;
     }
 
-    private static boolean hasConflicts() {
-        List<Event> eventList = new LinkedList<>();
-        for (List<Event> events : stationEvents) {
-            eventList.addAll(events);
-        }
+    private static TimeSlot nextAvailableTimeSlot(Integer last_tried, int duration, Event event) {
 
-        for (int i = 0; i < eventList.size() - 1; i++) {
-            for (int j = i + 1; j < eventList.size(); j++) {
-                Event event1 = eventList.get(i);
-                Event event2 = eventList.get(j);
-                if (hasConflict(event1, event2)) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    private static int nextAvailableTimeSlot(Integer last_tried, int duration, Event event) {
-
-        int next_booked;
+        TimeSlot next_booked;
         if (last_tried == null)
-            next_booked = stationTimes.getOrDefault(event.station(), 0) + 1;
+            next_booked = stationTimes.getOrDefault(event.station(), new TimeSlot(1, 1));
         else
-            next_booked = last_tried;
+            next_booked = new TimeSlot(last_tried, duration);
+        next_booked.setTimeSlot(next_booked.getTimeSlot() + 1);
 
         List<Event> eventsToCheck = new LinkedList<>();
         stationEvents.forEach(events -> {
@@ -143,14 +93,15 @@ public class EventMaker {
         });
 
         for (Event checkEvent : eventsToCheck) {
-            if (hasConflict(checkEvent, event, next_booked, duration)) {
-                int end = checkEvent.time_slots().get(checkEvent.time_slots().size() - 1);
-                next_booked = Math.max(next_booked, end + 1);
+            if (hasConflict(checkEvent, event, next_booked)) {
+                int newTimeSlot = Math.max(next_booked.getLastTimeSlot(), checkEvent.timeSlot().getLastTimeSlot() + 1);
+                next_booked.setTimeSlot(newTimeSlot);
             }
         }
 
-        if (TimeSlot.pastLastTimeSlot(next_booked, duration))
-            next_booked = TimeSlot.getNextDayTimeSlot(next_booked);
+        if (next_booked.pastLastTimeSlot())
+            next_booked.setTimeSlot(TimeSlot.getFirstTimeSlot(next_booked.getDay() + 1));
+
         return next_booked;
     }
 
@@ -175,27 +126,17 @@ public class EventMaker {
 
         assert duration < TimeSlot.getNumTimeSlotsPerDay();
 
-        int new_booked = nextAvailableTimeSlot(null, duration, event);
+        TimeSlot newTimeSlot = nextAvailableTimeSlot(null, duration, event);
 
-        List<Integer> time_slots = new ArrayList<>(duration);
-        for (int i = new_booked; i < duration + new_booked; i++)
-            time_slots.add(i);
-
-        boolean sameDay = TimeSlot.getDay(time_slots.get(0)) == TimeSlot.getDay(time_slots.get(time_slots.size()-1));
-        assert sameDay;
-
-        event.assignTimeSlots(time_slots);
+        event.assignTimeSlot(newTimeSlot);
         while (hasConflict(event)) {
-            new_booked = nextAvailableTimeSlot(new_booked, duration, event);
-
-            time_slots = new ArrayList<>(duration);
-            for (int i = new_booked; i < duration + new_booked; i++)
-                time_slots.add(i);
-            event.assignTimeSlots(time_slots);
+            newTimeSlot = nextAvailableTimeSlot(newTimeSlot.getTimeSlot(), duration, event);
+            event.assignTimeSlot(newTimeSlot);
+            System.out.println("Trying " + newTimeSlot);
         }
         assignEventToStation(event);
-
-        stationTimes.put(event.station(), new_booked + duration);
+        System.out.println("Assigned " + event);
+        stationTimes.put(event.station(), newTimeSlot);
     }
 
     private static ArrayList<Event> makeXFinalsEvent(CompetitionGroup competitionGroup, Trial trial, Station station) {
@@ -308,7 +249,7 @@ public class EventMaker {
 
         for (CompetitionGroup competitionGroup : competitionGroups) {
             Event event = new Event(
-                    new ArrayList<>(),
+                    null,
                     new ArrayList<>(competitionGroup.athleteRecordsList().stream().map(AthleteRecord::getAthlete).toList()),
                     Station.AWARDS_STAGE,
                     competitionGroup.discipline(),

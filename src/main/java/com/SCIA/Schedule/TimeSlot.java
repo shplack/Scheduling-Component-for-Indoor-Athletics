@@ -2,22 +2,80 @@ package com.SCIA.Schedule;
 
 public class TimeSlot {
 
-    public TimeSlot(int startTime, int duration){
-        this.startTime = startTime;
-        this.duration = duration;
-    }
-
-    private final int startTime;
-    private final int duration;
     protected static final int START_TIME = 8;
     protected static final int END_TIME = 19;
     protected static final int HOURS_PER_DAY = END_TIME - START_TIME;
     public static final int INCREMENT = 5;
     protected static final int NUM_TIME_SLOTS_PER_DAY = HOURS_PER_DAY * 60 / INCREMENT;
 
+    public TimeSlot(int timeSlot, int duration){
+        this.timeSlot = timeSlot;
+        this.duration = duration;
+    }
+
+    public TimeSlot(TimeSlot timeSlot) {
+        this.timeSlot = timeSlot.timeSlot;
+        this.duration = timeSlot.duration;
+    }
+
+    private int timeSlot;
+    private int duration;
+
+    public int getTimeSlot() {
+        return timeSlot;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setTimeSlot(int timeSlot) {
+        this.timeSlot = timeSlot;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public void setTimeSlot(int timeSlot, int duration) {
+        setTimeSlot(timeSlot);
+        setDuration(duration);
+    }
+
+    public void setTimeSlot(TimeSlot timeSlot) {
+        this.timeSlot = timeSlot.timeSlot;
+        this.duration = timeSlot.duration;
+    }
+
+    public int getLastTimeSlot() {
+        return  timeSlot + duration - 1;
+    }
+
+    public boolean conflictsWith(int timeSlot, int duration) {
+        int end = timeSlot + duration - 1;
+        if (this.timeSlot >= timeSlot && this.timeSlot <= end)
+            return true;
+        if (getLastTimeSlot() >= timeSlot && getLastTimeSlot() <= end)
+            return true;
+        if (timeSlot >= this.timeSlot && timeSlot <= getLastTimeSlot())
+            return true;
+        if (end >= this.timeSlot && end <= getLastTimeSlot())
+            return true;
+        return false;
+
+    }
+
+    public boolean conflictsWith(TimeSlot timeSlot) {
+        return this.conflictsWith(timeSlot.timeSlot, timeSlot.duration);
+    }
+
     //get day by timeslot
     public static int getDay(int time_slot) {
         return (time_slot - 1) / NUM_TIME_SLOTS_PER_DAY + 1;
+    }
+
+    public int getDay() {
+        return getDay(this.timeSlot);
     }
 
     private static int getRelativeTimeSlot(int time_slot) {
@@ -30,6 +88,10 @@ public class TimeSlot {
 
     static int getMinutes(int time_slot) {
         return (getRelativeTimeSlot(time_slot) * INCREMENT - INCREMENT) % 60;
+    }
+
+    public String toString() {
+        return getStartTime() + " - " + getEndTime();
     }
 
     public static String toString(int time_slot) {
@@ -51,7 +113,7 @@ public class TimeSlot {
     }
 
     public static boolean pastLastTimeSlot(int time_slot, int duration) {
-        if (getDay(time_slot) != getDay(time_slot + duration))
+        if (getDay(time_slot) != getDay(time_slot + duration - 1))
             return true;
 
         int hour = getHour(time_slot);
@@ -61,6 +123,10 @@ public class TimeSlot {
         return true;
     }
 
+    public boolean pastLastTimeSlot() {
+        return getRelativeTimeSlot(getLastTimeSlot()) > NUM_TIME_SLOTS_PER_DAY;
+    }
+
     public static int getNextDayTimeSlot(int time_slot) {
 
         int day = getDay(time_slot);
@@ -68,7 +134,11 @@ public class TimeSlot {
         return timeSlotNextDay;
     }
 
-    public static int getLastTimeSlot() {
+    public static int getFirstTimeSlot(int day) {
+        return day * NUM_TIME_SLOTS_PER_DAY + 1;
+    }
+
+    public static int getNumTimeSlotsPerDay() {
         return NUM_TIME_SLOTS_PER_DAY;
     }
 
@@ -91,20 +161,24 @@ public class TimeSlot {
 
     }
     public String getStartTime(){
-        return toString(startTime);
+        return toString(timeSlot);
     }
 
 
    public String getEndTime(){
-        if (getRelativeTimeSlot(startTime) == NUM_TIME_SLOTS_PER_DAY){
+        if (getRelativeTimeSlot(timeSlot) == NUM_TIME_SLOTS_PER_DAY){
             return toString(END_TIME,0);
         }
 
-        int end_time = getRelativeTimeSlot(startTime+duration);
+        int end_time = getRelativeTimeSlot(timeSlot +duration);
         if (end_time == NUM_TIME_SLOTS_PER_DAY){
             return toString(END_TIME,0);
         }
 
         return toString(end_time);
+    }
+
+    public boolean equals(TimeSlot timeSlot) {
+        return this.timeSlot == timeSlot.timeSlot && this.duration == timeSlot.duration;
     }
 }
