@@ -23,4 +23,10 @@ class ScheduleSortersTest {
         schedule.eventList().forEach(System.out::println);
     }
 
+    @Test
+    void sortEventsByTrialStationAgegroup() {
+        schedule.eventList().sort(new SortEventsByTrialStationAgegroup());
+        System.out.println(schedule);
+    }
+
 }
