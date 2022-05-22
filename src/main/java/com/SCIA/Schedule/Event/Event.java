@@ -14,12 +14,11 @@ import static com.SCIA.Discipline.Disciplines.Discipline;
 import static com.SCIA.Discipline.Stations.Station;
 import static com.SCIA.Discipline.Stations.Station.*;
 
-public record Event(ArrayList<Integer> time_slots, List<Athlete> athletes, Station station, Discipline discipline, Trial trial,
+public record Event(TimeSlot timeSlot, List<Athlete> athletes, Station station, Discipline discipline, Trial trial,
                     AgeGroup age_group, Gender gender) {
 
     public Event {
-        if (time_slots == null)
-            time_slots = new ArrayList<>();
+        timeSlot = new TimeSlot(0, 0);
         Objects.requireNonNull(athletes);
         Objects.requireNonNull(station);
         Objects.requireNonNull(discipline);
@@ -30,7 +29,7 @@ public record Event(ArrayList<Integer> time_slots, List<Athlete> athletes, Stati
 
     public Event(Event event) {
         this(
-                new ArrayList<>(),
+                new TimeSlot(0, 0),
                 event.athletes,
                 event.station,
                 event.discipline,
@@ -40,9 +39,12 @@ public record Event(ArrayList<Integer> time_slots, List<Athlete> athletes, Stati
         );
     }
 
-    public void assignTimeSlots(List<Integer> time_slots) {
-        this.time_slots.clear();
-        this.time_slots.addAll(time_slots);
+    public void assignTimeSlot(int startTime, int duration) {
+        this.timeSlot.setTimeSlot(startTime, duration);
+    }
+
+    public void assignTimeSlot(TimeSlot timeSlot) {
+        this.timeSlot.setTimeSlot(timeSlot);
     }
 
     public boolean isSwappable(Event event) {
@@ -72,11 +74,11 @@ public record Event(ArrayList<Integer> time_slots, List<Athlete> athletes, Stati
     }
 
     public Event deepCopy() {
-        return new Event(new ArrayList<>(time_slots), List.copyOf(athletes), station, discipline, trial, age_group, gender);
+        return new Event(new TimeSlot(timeSlot), List.copyOf(athletes), station, discipline, trial, age_group, gender);
     }
 
     public boolean equals(Event event) {
-        if (!time_slots.equals(event.time_slots))
+        if (!timeSlot.equals(event.timeSlot))
             return false;
 
         if (athletes.size() != event.athletes.size()) {
@@ -108,13 +110,9 @@ public record Event(ArrayList<Integer> time_slots, List<Athlete> athletes, Stati
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
 
-        int start = time_slots.get(0);
-        int end = time_slots.get(time_slots.size() - 1);
-        int day = TimeSlot.getDay(start);
-
-        stringBuilder.append("Day: ").append(day).append(", ")
-                .append(TimeSlot.toString(start)).append(" - ")
-                .append(TimeSlot.toString(end + 1)).append("\t");
+        stringBuilder.append("Day: ").append(timeSlot.getDay()).append(", ")
+                .append(timeSlot.getStartTime()).append(" - ")
+                .append(timeSlot.getEndTime()).append("\t");
 
         stringBuilder.append(discipline).append("\t")
                 .append(trial).append("  \t")

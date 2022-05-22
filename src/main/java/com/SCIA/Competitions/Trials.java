@@ -1,10 +1,6 @@
 package com.SCIA.Competitions;
 
-import com.SCIA.Discipline.Disciplines;
-import com.SCIA.Discipline.Stations;
 import com.SCIA.Discipline.Stations.Station;
-
-import static com.SCIA.Competitions.Trials.Trial.Order.*;
 
 public class Trials {
 
@@ -14,14 +10,22 @@ public class Trials {
         SEMI_FINAL,
         FINAL,
         TRIAL,
-
         AWARD;
 
-        public enum Order {
-            HIGHER,
-            EQUAL,
-            LOWER
+        public boolean mustHappenBefore(Trial trial) {
+            if (this == trial)
+                return false;
+
+            if (this == AWARD)
+                return this.ordinal() < trial.ordinal();
+
+            if (this != FINAL && trial.ordinal() <= FINAL.ordinal())
+                return this.ordinal() < trial.ordinal();
+
+            return this.ordinal() < trial.ordinal();
         }
+
+
 
         public int getNumGroups() {
             return switch(this) {
@@ -32,12 +36,20 @@ public class Trials {
             };
         }
 
-        public boolean canHazTrial(Station station, int numAthletes) {
-            return switch (this) {
-                case QUARTER_FINAL -> numAthletes > station.getAthleteLimit() * this.getNumGroups();
-                case SEMI_FINAL -> numAthletes > station.getAthleteLimit();
-                default -> numAthletes > 0;
+        private int getMinimumRequiredNumGroups() {
+            return switch(this) {
+                case QUALIFYING -> 4;
+                case QUARTER_FINAL -> 2;
+                case SEMI_FINAL -> 1;
+                default -> 0;
             };
+        }
+
+        public boolean canHazTrial(Station station, int numAthletes) {
+            int minNumGroups = this.getMinimumRequiredNumGroups();
+            if (minNumGroups == 0)
+                return numAthletes > 0;
+            return numAthletes > minNumGroups * station.getAthleteLimit();
         }
     }
 

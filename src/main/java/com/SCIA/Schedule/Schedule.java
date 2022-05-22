@@ -1,6 +1,5 @@
 package com.SCIA.Schedule;
 
-import com.SCIA.Competitions.Trials.Trial.Order;
 import com.SCIA.Schedule.Event.Event;
 
 import java.util.ArrayList;

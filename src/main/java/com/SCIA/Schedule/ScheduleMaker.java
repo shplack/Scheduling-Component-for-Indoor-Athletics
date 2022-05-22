@@ -1,6 +1,8 @@
 package com.SCIA.Schedule;
 
 import com.SCIA.Competitions.CompetitionGroup;
+import com.SCIA.Competitions.CompetitionGroupSorters;
+import com.SCIA.Competitions.Trials;
 import com.SCIA.Schedule.Event.Event;
 import com.SCIA.Schedule.Event.EventMaker;
 
@@ -16,7 +18,7 @@ public class ScheduleMaker {
         List<CompetitionGroup> trialCompetitions = new LinkedList<>();
 
 
-
+        competitionGroups.sort(new CompetitionGroupSorters.DisciplineAgeGroupGender());
 
         for (CompetitionGroup competitionGroup : competitionGroups) {
             competitionGroup.athleteRecordsList().sort(Comparator.comparingDouble(
@@ -26,11 +28,11 @@ public class ScheduleMaker {
             if (competitionGroup.discipline().isRunningDiscipline())
                 runningCompetitions.add(competitionGroup);
             else if (competitionGroup.discipline().isTrialDiscipline())
-                runningCompetitions.add(competitionGroup);
+                trialCompetitions.add(competitionGroup);
         }
 
         eventList.addAll(EventMaker.makeRunningEvents(runningCompetitions));
-        eventList.addAll(EventMaker.makeTrialEvents(trialCompetitions));
+        eventList.addAll(EventMaker.makeTrialEvents(trialCompetitions, Trials.Trial.TRIAL));
         eventList.addAll(EventMaker.awardsCeremony(competitionGroups));
 
         return new Schedule(eventList);
