@@ -2,7 +2,6 @@ package com.SCIA.Schedule.Event;
 
 import com.SCIA.Athlete.Athlete;
 import com.SCIA.Athlete.AthleteRecord;
-import com.SCIA.Athlete.Gender;
 import com.SCIA.Competitions.AgeGroups.AgeGroup;
 import com.SCIA.Competitions.CompetitionGroup;
 import com.SCIA.Competitions.Trials;
@@ -106,7 +105,7 @@ public class EventMaker {
 
         List<Event> eventsToCheck = new LinkedList<>();
         stationEvents.forEach(events -> {
-            eventsToCheck.addAll(events.stream().filter(eventToCheck -> canConflict(event, eventToCheck)).toList());
+            eventsToCheck.addAll(events.stream().filter(eventToCheck -> canConflict(event, eventToCheck)).collect(Collectors.toCollection(LinkedList::new)));
         });
 
         for (Event checkEvent : eventsToCheck) {
@@ -155,7 +154,7 @@ public class EventMaker {
     }
 
     private static ArrayList<Event> makeXFinalsEvent(CompetitionGroup competitionGroup, Trial trial, Station station) {
-        ArrayList<Athlete> athletes = new ArrayList<>(competitionGroup.athleteRecordsList().stream().map(AthleteRecord::getAthlete).toList());
+        ArrayList<Athlete> athletes = competitionGroup.athleteRecordsList().stream().map(AthleteRecord::getAthlete).collect(Collectors.toCollection(ArrayList::new));
         Discipline discipline = competitionGroup.discipline();
         AgeGroup ageGroup = competitionGroup.age_group();
 
@@ -211,7 +210,7 @@ public class EventMaker {
             stations = discipline.getStations();
             Station station = whichStation(stations);
             if (trial.canHazTrial(station, group.athleteRecordsList().size())) {
-                List<Athlete> athletes = group.athleteRecordsList().stream().map(AthleteRecord::getAthlete).toList();
+                List<Athlete> athletes = group.athleteRecordsList().stream().map(AthleteRecord::getAthlete).collect(Collectors.toCollection(ArrayList::new));
                 Event event = new Event(null, athletes, station, discipline, trial, group.age_group(), group.gender());
                 assignTimeSlot(event, group);
                 events.add(event);
@@ -265,7 +264,7 @@ public class EventMaker {
         for (CompetitionGroup competitionGroup : competitionGroups) {
             Event event = new Event(
                     null,
-                    new ArrayList<>(competitionGroup.athleteRecordsList().stream().map(AthleteRecord::getAthlete).toList()),
+                    competitionGroup.athleteRecordsList().stream().map(AthleteRecord::getAthlete).collect(Collectors.toCollection(ArrayList::new)),
                     Station.AWARDS_STAGE,
                     competitionGroup.discipline(),
                     Trial.AWARD,

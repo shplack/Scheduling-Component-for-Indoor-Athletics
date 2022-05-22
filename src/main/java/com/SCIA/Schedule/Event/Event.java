@@ -4,7 +4,6 @@ import com.SCIA.Athlete.Athlete;
 import com.SCIA.Athlete.Gender;
 import com.SCIA.Schedule.TimeSlot;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,18 +12,62 @@ import static com.SCIA.Competitions.Trials.Trial;
 import static com.SCIA.Discipline.Disciplines.Discipline;
 import static com.SCIA.Discipline.Stations.Station;
 
-public record Event(TimeSlot timeSlot, List<Athlete> athletes, Station station, Discipline discipline, Trial trial,
-                    AgeGroup age_group, Gender gender) {
+public class Event {
 
-    public Event {
-        if (timeSlot == null)
-            timeSlot = new TimeSlot(0, 0);
+    private final TimeSlot timeSlot;
+    private final List<Athlete> athletes;
+    private final Station station;
+    private final Discipline discipline;
+    private final Trial trial;
+    private final AgeGroup age_group;
+    private final Gender gender;
+
+    public TimeSlot timeSlot() {
+        return this.timeSlot;
+    }
+
+    public List<Athlete> athletes() {
+        return this.athletes;
+    }
+
+    public Station station() {
+        return this.station;
+    }
+
+    public Discipline discipline() {
+        return this.discipline;
+    }
+
+    public Trial trial() {
+        return this.trial;
+    }
+
+    public AgeGroup age_group() {
+        return this.age_group;
+    }
+
+    public Gender gender() {
+        return this.gender;
+    }
+
+
+
+    public Event(TimeSlot timeSlot, List<Athlete> athletes, Station station, Discipline discipline, Trial trial,
+                 AgeGroup age_group, Gender gender) {
+        this.timeSlot = Objects.requireNonNullElseGet(timeSlot, () -> new TimeSlot(0, 0));
         Objects.requireNonNull(athletes);
         Objects.requireNonNull(station);
         Objects.requireNonNull(discipline);
         Objects.requireNonNull(trial);
         Objects.requireNonNull(age_group);
         Objects.requireNonNull(gender);
+
+        this.athletes = athletes;
+        this.station = station;
+        this.discipline = discipline;
+        this.trial = trial;
+        this.age_group = age_group;
+        this.gender = gender;
     }
 
     public Event(Event event) {

@@ -28,21 +28,29 @@ public class Trials {
 
 
         public int getNumGroups() {
-            return switch(this) {
-                case QUARTER_FINAL -> 4;
-                case SEMI_FINAL -> 2;
-                case FINAL -> 1;
-                default -> 0;
-            };
+            switch (this) {
+                case QUARTER_FINAL:
+                    return 4;
+                case SEMI_FINAL:
+                    return 2;
+                case FINAL:
+                    return 1;
+                default:
+                    return 0;
+            }
         }
 
         private int getMinimumRequiredNumGroups() {
-            return switch(this) {
-                case QUALIFYING -> 4;
-                case QUARTER_FINAL -> 2;
-                case SEMI_FINAL -> 1;
-                default -> 0;
-            };
+            switch (this) {
+                case QUALIFYING:
+                    return 4;
+                case QUARTER_FINAL:
+                    return 2;
+                case SEMI_FINAL:
+                    return 1;
+                default:
+                    return 0;
+            }
         }
 
         public boolean canHazTrial(Station station, int numAthletes) {

@@ -9,8 +9,8 @@
         <module name="SCIA" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="SCIA" target="17" />
+    <bytecodeTargetLevel target="11">
+      <module name="SCIA" target="" />
     </bytecodeTargetLevel>
   </component>
 </project>

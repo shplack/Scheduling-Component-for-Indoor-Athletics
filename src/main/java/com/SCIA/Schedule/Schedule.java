@@ -3,10 +3,21 @@ package com.SCIA.Schedule;
 import com.SCIA.Schedule.Event.Event;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public record Schedule(List<Event> eventList) {
+public class Schedule {
+
+    private final List<Event> eventList;
+
+    public Schedule(List<Event> eventList) {
+        this.eventList = eventList;
+    }
+
+    public List<Event> eventList() {
+        return eventList;
+    }
+
 
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -28,7 +39,7 @@ public record Schedule(List<Event> eventList) {
     }
 
     public Schedule deepCopy() {
-        return new Schedule(new ArrayList<>(eventList.stream().map(Event::deepCopy).toList()));
+        return new Schedule(eventList.stream().map(Event::deepCopy).collect(Collectors.toCollection(ArrayList::new)));
     }
 
     public String inOrder() {

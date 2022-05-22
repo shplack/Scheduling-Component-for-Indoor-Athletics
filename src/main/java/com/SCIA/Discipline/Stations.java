@@ -17,11 +17,14 @@ public class Stations {
         AWARDS_STAGE;
 
         public int getAthleteLimit() {
-            return switch(this) {
-                case RUNNING_TRACK -> 6;
-                case SPRINT_TRACK -> 8;
-                default -> 1;
-            };
+            switch (this) {
+                case RUNNING_TRACK:
+                    return 6;
+                case SPRINT_TRACK:
+                    return 8;
+                default:
+                    return 1;
+            }
         }
 
 

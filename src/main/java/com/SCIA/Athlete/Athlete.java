@@ -3,7 +3,39 @@ package com.SCIA.Athlete;
 import java.util.Map;
 import java.util.Objects;
 
-public record Athlete(int id, String club, String name, String surname, Gender gender, int age) {
+public class Athlete {
+
+    private final int id;
+    private final String club;
+    private final String name;
+    private final String surname;
+    private final Gender gender;
+    private final int age;
+
+    public int id() {
+        return id;
+    }
+
+    public String club() {
+        return club;
+    }
+
+    public String name() {
+        return name;
+    }
+
+    public String surname() {
+        return surname;
+    }
+
+    public Gender gender() {
+        return gender;
+    }
+
+    public int age() {
+        return age;
+    }
+
     public enum Property {
         CLUB,
         NAME,
@@ -13,15 +45,17 @@ public record Athlete(int id, String club, String name, String surname, Gender g
         ID
     }
 
-    public Athlete {
+    public Athlete(int id, String club, String name, String surname, Gender gender, int age) {
         Objects.requireNonNull(club);
         Objects.requireNonNull(name);
         Objects.requireNonNull(surname);
         Objects.requireNonNull(gender);
-
-        club = club.trim();
-        name = name.trim();
-        surname = surname.trim();
+        this.id = id;
+        this.club = club.trim();
+        this.name = name.trim();
+        this.surname = surname.trim();
+        this.gender = gender;
+        this.age = age;
     }
 
     public Athlete(Map<Property, String> properties) {

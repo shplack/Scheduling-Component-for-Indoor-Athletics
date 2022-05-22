@@ -12,10 +12,14 @@ public class AgeGroups {
         NINETEEN_AND_OVER;
 
         public boolean isUnisex() {
-            return switch(this) {
-                case EIGHT_AND_UNDER, NINE_TO_TEN, ELEVEN_TO_TWELVE -> true;
-                default -> false;
-            };
+            switch (this) {
+                case EIGHT_AND_UNDER:
+                case NINE_TO_TEN:
+                case ELEVEN_TO_TWELVE:
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         public boolean isLowerThan(AgeGroup ageGroup) {

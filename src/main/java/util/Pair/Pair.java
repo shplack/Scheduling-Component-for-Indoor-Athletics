@@ -112,9 +112,14 @@ public class Pair<K,V> implements Serializable{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o instanceof Pair pair) {
-            if (!Objects.equals(key, pair.key)) return false;
-            return Objects.equals(value, pair.value);
+        try {
+            if (Class.forName(Pair.class.getName()).isInstance(o)) {
+                Pair pair = (Pair) o;
+                if (!Objects.equals(key, pair.key)) return false;
+                return Objects.equals(value, pair.value);
+            }
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
         return false;
     }
