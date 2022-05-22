@@ -187,4 +187,6 @@ public class TimeSlot {
     public int compareTo(TimeSlot timeSlot) {
         return this.timeSlot + duration - timeSlot.timeSlot;
     }
+
+    public static int compareTo(TimeSlot ts1, TimeSlot ts2) { return ts1.timeSlot - ts2.timeSlot; }
 }
