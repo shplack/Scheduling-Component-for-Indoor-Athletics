@@ -13,8 +13,8 @@ public class Judgement {
 
     public static int getConflicts(List<Event> eventList)  {
 
-        int conflicts = 0;/*
-
+        int conflicts = 0;
+/*
         //System.out.println("This is size: "+ eventList.size());
         for (int First_Value_To_Iterate_List = 0; First_Value_To_Iterate_List < eventList.size(); First_Value_To_Iterate_List++) {
             for (int Second_value_To_Iterate_List = 0; Second_value_To_Iterate_List < eventList.size(); Second_value_To_Iterate_List++) {
@@ -38,12 +38,16 @@ public class Judgement {
                             }
             }
         }
+
+
         //System.out.println("This is conflicts: " + conflicts);
         //double double_conflicts = conflicts;
         //double_conflicts = Math.sqrt(double_conflicts);
         //conflicts = (int) double_conflicts;
 
-         */
+
+
+ */
         return conflicts;
     }
 }

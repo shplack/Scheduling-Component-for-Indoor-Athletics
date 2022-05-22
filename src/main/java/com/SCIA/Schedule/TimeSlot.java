@@ -62,7 +62,6 @@ public class TimeSlot {
         if (end >= this.timeSlot && end <= getLastTimeSlot())
             return true;
         return false;
-
     }
 
     public boolean conflictsWith(TimeSlot timeSlot) {

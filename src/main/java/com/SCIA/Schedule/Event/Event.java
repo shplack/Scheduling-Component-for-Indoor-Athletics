@@ -66,12 +66,8 @@ public record Event(TimeSlot timeSlot, List<Athlete> athletes, Station station, 
         /*
         if (this.gender != event.gender)
             return false;
-
-
          */
         return true;
-
-
     }
 
     public Event deepCopy() {

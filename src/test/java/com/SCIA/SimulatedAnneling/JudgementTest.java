@@ -2,16 +2,23 @@ package com.SCIA.SimulatedAnneling;
 
 
 import com.SCIA.Athlete.Athlete;
+import com.SCIA.Athlete.AthleteRecord;
 import com.SCIA.Athlete.Gender;
+import com.SCIA.CSV.CSV;
 import com.SCIA.Competitions.AgeGroups;
+import com.SCIA.Competitions.CompetitionGroup;
+import com.SCIA.Competitions.CompetitionGroupsMaker;
 import com.SCIA.Competitions.Trials;
 import com.SCIA.Discipline.Disciplines;
 import com.SCIA.Discipline.Stations;
 import com.SCIA.Schedule.Event.Event;
+import com.SCIA.Schedule.Schedule;
+import com.SCIA.Schedule.ScheduleMaker;
 import com.SCIA.Schedule.TimeSlot;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -117,8 +124,12 @@ class JudgementTest {
 
 
     @Test
-    void getTimeSlot() {
-        Judgement.getConflicts(eventList);
+    void getTimeSlot() throws IOException {
+        CSV csv = new CSV("registration-list.csv");
+        ArrayList<AthleteRecord> athlete_records = csv.getRecords();
+        ArrayList<CompetitionGroup> competition_groups = CompetitionGroupsMaker.makeCompetitionGroups(athlete_records);
+        Schedule schedule = ScheduleMaker.makeSchedule(competition_groups);
+        System.out.println(UpdatedJudgement.getConflicts(schedule.eventList()));
 
         /*
                 int conflicts = 0;

@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.*;
 
 import static com.SCIA.Competitions.Trials.Trial;
 import static com.SCIA.Discipline.Disciplines.Discipline;
@@ -21,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class EventTest {
 
     Event event;
-    Event event_two;
+    Event event2;
     TimeSlot timeSlot = new TimeSlot(1, 3);
 
     @BeforeEach
@@ -43,8 +44,36 @@ class EventTest {
                 Gender.FEMALE
         );
 
+        event2 = new Event(
+                new TimeSlot(2, 5),
+                new ArrayList<>(List.of(new Athlete(
+                        1,
+                        "ÖSK",
+                        "Alexander",
+                        "Hedberg",
+                        Gender.MALE,
+                        29
+                ))),
+                Station.HIGH_JUMP_I,
+                Discipline.HIGH_JUMP,
+                Trial.TRIAL,
+                AgeGroups.AgeGroup.EIGHT_AND_UNDER,
+                Gender.FEMALE
+        );
 
     }
+
+
+    @Test
+    void test() {
+        //event.timeSlot().setTimeSlot(132, 2);
+        System.out.println(event.timeSlot());
+        System.out.println(event.timeSlot().getDay());
+        System.out.println();
+        System.out.println(event.timeSlot().conflictsWith(event2.timeSlot().getTimeSlot(), event2.timeSlot().getDuration()));
+    }
+
+    /*
 
     @Test
     void testTimeSlot() {
@@ -62,4 +91,6 @@ class EventTest {
     @Disabled
     void testEquals() {
     }
+
+     */
 }
