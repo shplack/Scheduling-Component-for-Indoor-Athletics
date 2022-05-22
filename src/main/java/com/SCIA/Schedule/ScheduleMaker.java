@@ -1,7 +1,9 @@
 package com.SCIA.Schedule;
 
+import com.SCIA.CSV.CSV;
 import com.SCIA.Competitions.CompetitionGroup;
 import com.SCIA.Competitions.CompetitionGroupSorters;
+import com.SCIA.Competitions.CompetitionGroupsMaker;
 import com.SCIA.Competitions.Trials;
 import com.SCIA.Schedule.Event.Event;
 import com.SCIA.Schedule.Event.EventMaker;
@@ -9,6 +11,7 @@ import com.SCIA.Schedule.Event.EventMaker;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public class ScheduleMaker {
     public static Schedule makeSchedule(List<CompetitionGroup> competitionGroups) {
@@ -36,5 +39,11 @@ public class ScheduleMaker {
         eventList.addAll(EventMaker.awardsCeremony(competitionGroups));
 
         return new Schedule(eventList);
+    }
+
+    public static Schedule makeSchedule(CSV csv) {
+        Objects.requireNonNull(csv);
+        Objects.requireNonNull(csv.getRecords());
+        return makeSchedule(CompetitionGroupsMaker.makeCompetitionGroups(csv.getRecords()));
     }
 }
