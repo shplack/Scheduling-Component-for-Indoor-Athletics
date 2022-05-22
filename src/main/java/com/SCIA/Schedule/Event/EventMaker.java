@@ -2,6 +2,7 @@ package com.SCIA.Schedule.Event;
 
 import com.SCIA.Athlete.Athlete;
 import com.SCIA.Athlete.AthleteRecord;
+import com.SCIA.Athlete.Gender;
 import com.SCIA.Competitions.AgeGroups.AgeGroup;
 import com.SCIA.Competitions.CompetitionGroup;
 import com.SCIA.Competitions.Trials;
@@ -36,8 +37,6 @@ public class EventMaker {
     }
 
     private static boolean hasConflict(Event eventToCheck, Event event, TimeSlot timeSlot) {
-        if (event.trial() == AWARD)
-            System.out.print("");
         if (!canConflict(eventToCheck, event))
             return false;
 
@@ -150,10 +149,8 @@ public class EventMaker {
         while (hasConflict(event)) {
             newTimeSlot = nextAvailableTimeSlot(newTimeSlot.getTimeSlot(), duration, event);
             event.assignTimeSlot(newTimeSlot);
-            System.out.println("Trying " + newTimeSlot);
         }
         assignEventToStation(event);
-        System.out.println("Assigned " + event);
         stationTimes.put(event.station(), newTimeSlot);
     }
 

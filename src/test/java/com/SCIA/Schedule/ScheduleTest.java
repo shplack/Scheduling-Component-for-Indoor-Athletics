@@ -71,9 +71,8 @@ class ScheduleTest {
         List <Event> failedEvents = new LinkedList<>();
 
         schedule.eventList().forEach(event -> {
-            if (event.timeSlot().getStartTime().compareTo(event.timeSlot().getEndTime()) > 0)
+            if (event.timeSlot().getStartTime().compareTo(event.timeSlot().getEndTime()) >= 0)
                 failedEvents.add(event);
-            System.out.println(event);
         });
 
         failedEvents.forEach(System.out::println);

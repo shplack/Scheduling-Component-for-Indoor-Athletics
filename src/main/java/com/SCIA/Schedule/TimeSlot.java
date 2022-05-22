@@ -124,7 +124,9 @@ public class TimeSlot {
     }
 
     public boolean pastLastTimeSlot() {
-        return getRelativeTimeSlot(getLastTimeSlot()) > NUM_TIME_SLOTS_PER_DAY;
+        int day = getDay(this.timeSlot);
+        int lastTimeSlot = getLastTimeSlot(day);
+        return getLastTimeSlot() > lastTimeSlot;
     }
 
     public static int getNextDayTimeSlot(int time_slot) {
