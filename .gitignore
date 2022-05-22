@@ -5,6 +5,7 @@ out/
 /.idea/workspace.xml
 /.idea/.gitignore
 /.idea/misc.xml
+/.idea/libraries
 /target
 
 ### Eclipse ###

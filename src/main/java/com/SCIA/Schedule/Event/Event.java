@@ -17,7 +17,8 @@ public record Event(TimeSlot timeSlot, List<Athlete> athletes, Station station, 
                     AgeGroup age_group, Gender gender) {
 
     public Event {
-        timeSlot = new TimeSlot(0, 0);
+        if (timeSlot == null)
+            timeSlot = new TimeSlot(0, 0);
         Objects.requireNonNull(athletes);
         Objects.requireNonNull(station);
         Objects.requireNonNull(discipline);

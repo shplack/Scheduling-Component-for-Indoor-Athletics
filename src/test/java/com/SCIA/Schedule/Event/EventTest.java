@@ -16,16 +16,18 @@ import java.util.List;
 import static com.SCIA.Competitions.Trials.Trial;
 import static com.SCIA.Discipline.Disciplines.Discipline;
 import static com.SCIA.Discipline.Stations.Station;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class EventTest {
 
     Event event;
     Event event_two;
+    TimeSlot timeSlot = new TimeSlot(1, 3);
 
     @BeforeEach
     void setUp() {
         event = new Event(
-                new TimeSlot(1, 3),
+                timeSlot,
                 new ArrayList<>(List.of(new Athlete(
                         1,
                         "ÖSK",
@@ -42,6 +44,11 @@ class EventTest {
         );
 
 
+    }
+
+    @Test
+    void testTimeSlot() {
+        assertEquals(timeSlot, event.timeSlot());
     }
 
 
