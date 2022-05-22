@@ -99,7 +99,7 @@ public class EventMaker {
 
         TimeSlot next_booked;
         if (last_tried == null)
-            next_booked = stationTimes.getOrDefault(event.station(), new TimeSlot(1, duration));
+            next_booked = stationTimes.getOrDefault(event.station(), new TimeSlot(0, duration));
         else
             next_booked = new TimeSlot(last_tried, duration);
         next_booked.setTimeSlot(next_booked.getTimeSlot() + 1);
