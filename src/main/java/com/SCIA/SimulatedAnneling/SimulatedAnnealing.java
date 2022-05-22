@@ -15,6 +15,7 @@ import java.util.List;
 
 public class SimulatedAnnealing {
     Schedule copySchedule;
+    /*
 
     public static Schedule simulatedAnnealingFunction() throws IOException {
         int newConflicts = 10;
@@ -60,6 +61,8 @@ public class SimulatedAnnealing {
             }
 
              */
+
+    /*
             heat = heat * coolingFactor;
             System.out.println("This is heat: " + heat);
             //}
@@ -68,6 +71,7 @@ public class SimulatedAnnealing {
         }
         return schedule;
     }
+    */
 
 
 }

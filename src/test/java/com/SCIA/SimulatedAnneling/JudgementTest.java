@@ -8,6 +8,7 @@ import com.SCIA.Competitions.Trials;
 import com.SCIA.Discipline.Disciplines;
 import com.SCIA.Discipline.Stations;
 import com.SCIA.Schedule.Event.Event;
+import com.SCIA.Schedule.TimeSlot;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +26,7 @@ class JudgementTest {
     @BeforeEach
     void setUp() {
         Event event = new Event(
-                new ArrayList<>(List.of(1)),
+                new TimeSlot(1, 1),
                 new ArrayList<>(List.of(new Athlete(
                         1,
                         "ÖSK",
@@ -42,7 +43,7 @@ class JudgementTest {
         );
 
         Event event_2 = new Event(
-                new ArrayList<>(List.of(4)),
+                new TimeSlot(3, 3),
                 new ArrayList<>(List.of(new Athlete(
                         2,
                         "ÖÖÖ",
@@ -59,7 +60,7 @@ class JudgementTest {
         );
 
         Event event_3 = new Event(
-                new ArrayList<>(List.of(1)),
+                new TimeSlot(1, 3),
                 new ArrayList<>(List.of(new Athlete(
                         1,
                         "ÖSK",
@@ -77,7 +78,7 @@ class JudgementTest {
 
 
         Event event_4 = new Event(
-                new ArrayList<>(List.of(3)),
+                new TimeSlot(1, 3),
                 new ArrayList<>(List.of(new Athlete(
                         2,
                         "ÖÖÖ",
@@ -94,7 +95,7 @@ class JudgementTest {
         );
 
         Event event_5 = new Event(
-                new ArrayList<>(List.of(3)),
+                new TimeSlot(1, 3),
                 new ArrayList<>(List.of(new Athlete(
                         2,
                         "ÖÖÖ",

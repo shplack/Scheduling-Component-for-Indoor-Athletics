@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Mutation {
+    /*
 
     public static List<Event> MutationFunction(List<Event> eventList)    {
 
@@ -36,5 +37,7 @@ public class Mutation {
 
 
     }
+
+     */
 
 }

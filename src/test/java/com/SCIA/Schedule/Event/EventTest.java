@@ -20,12 +20,28 @@ import static com.SCIA.Discipline.Stations.Station;
 class EventTest {
 
     Event event;
-    Event event_two;
+    Event event2;
 
     @BeforeEach
     void setUp() {
         event = new Event(
-                new TimeSlot(1, 3),
+                new TimeSlot(5, 5),
+                new ArrayList<>(List.of(new Athlete(
+                        1,
+                        "ÖSK",
+                        "Alexander",
+                        "Hedberg",
+                        Gender.MALE,
+                        29
+                ))),
+                Station.HIGH_JUMP_I,
+                Discipline.HIGH_JUMP,
+                Trial.TRIAL,
+                AgeGroups.AgeGroup.EIGHT_AND_UNDER,
+                Gender.FEMALE
+        );
+        event2 = new Event(
+                new TimeSlot(4, 3),
                 new ArrayList<>(List.of(new Athlete(
                         1,
                         "ÖSK",
@@ -44,8 +60,19 @@ class EventTest {
 
     }
 
+    @Test
+    void test() {
+        //System.out.println(event.timeSlot());
+        event.timeSlot().setTimeSlot(170, 5);
+        //System.out.println(event.timeSlot());
+        System.out.println(event.timeSlot().getStartTime());
+        System.out.println(event.timeSlot().getEndTime());
+        //System.out.println(event.timeSlot().compareTo(event2.timeSlot()));
 
 
+    }
+
+    /*
     @Test
     @Disabled
     void deepCopy() {
@@ -55,4 +82,6 @@ class EventTest {
     @Disabled
     void testEquals() {
     }
+
+     */
 }

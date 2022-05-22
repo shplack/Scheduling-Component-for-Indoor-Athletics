@@ -15,6 +15,7 @@ import com.SCIA.Discipline.Stations.Station;
 import com.SCIA.Schedule.Event.Event;
 import com.SCIA.Schedule.Schedule;
 import com.SCIA.Schedule.ScheduleMaker;
+import com.SCIA.Schedule.TimeSlot;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,7 +36,7 @@ class MutationTest {
     @BeforeEach
     void setUp() {
         Event event = new Event(
-                new ArrayList<>(List.of(1)),
+                new TimeSlot(1, 1),
                 new ArrayList<>(List.of(new Athlete(
                         1,
                         "ÖSK",
@@ -52,7 +53,7 @@ class MutationTest {
         );
 
         Event event_2 = new Event(
-                new ArrayList<>(List.of(4)),
+                new TimeSlot(3, 3),
                 new ArrayList<>(List.of(new Athlete(
                         2,
                         "ÖÖÖ",
@@ -61,7 +62,7 @@ class MutationTest {
                         Gender.MALE,
                         30
                 ))),
-                Stations.Station.LONG_TRIPLE_I,
+                Stations.Station.LONG_TRIPLE_II,
                 Disciplines.Discipline.TRIPLE_JUMP,
                 Trials.Trial.TRIAL,
                 AgeGroups.AgeGroup.NINETEEN_AND_OVER,
@@ -69,7 +70,7 @@ class MutationTest {
         );
 
         Event event_3 = new Event(
-                new ArrayList<>(List.of(1)),
+                new TimeSlot(1, 3),
                 new ArrayList<>(List.of(new Athlete(
                         1,
                         "ÖSK",
@@ -78,7 +79,7 @@ class MutationTest {
                         Gender.MALE,
                         29
                 ))),
-                Stations.Station.LONG_TRIPLE_I,
+                Stations.Station.LONG_TRIPLE_II,
                 Disciplines.Discipline.TRIPLE_JUMP,
                 Trials.Trial.TRIAL,
                 AgeGroups.AgeGroup.NINETEEN_AND_OVER,
@@ -87,7 +88,7 @@ class MutationTest {
 
 
         Event event_4 = new Event(
-                new ArrayList<>(List.of(3)),
+                new TimeSlot(1, 3),
                 new ArrayList<>(List.of(new Athlete(
                         2,
                         "ÖÖÖ",
@@ -104,7 +105,7 @@ class MutationTest {
         );
 
         Event event_5 = new Event(
-                new ArrayList<>(List.of(3)),
+                new TimeSlot(1, 3),
                 new ArrayList<>(List.of(new Athlete(
                         2,
                         "ÖÖÖ",
@@ -123,7 +124,7 @@ class MutationTest {
         eventList = new ArrayList<>(List.of(event, event_2, event_3, event_4, event_5));
 
     }
-
+/*
     @Test
     void mutate() throws IOException {
         CSV csv = new CSV("registration-list.csv");
@@ -134,6 +135,8 @@ class MutationTest {
         Mutation.MutationFunction(schedule.eventList());
     }
 
+
+ */
 
     /*
     void mutationFunction() {
