@@ -16,32 +16,18 @@ import java.util.List;
 import static com.SCIA.Competitions.Trials.Trial;
 import static com.SCIA.Discipline.Disciplines.Discipline;
 import static com.SCIA.Discipline.Stations.Station;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class EventTest {
 
     Event event;
-    Event event2;
+    Event event_two;
+    TimeSlot timeSlot = new TimeSlot(1, 3);
 
     @BeforeEach
     void setUp() {
         event = new Event(
-                new TimeSlot(5, 5),
-                new ArrayList<>(List.of(new Athlete(
-                        1,
-                        "ÖSK",
-                        "Alexander",
-                        "Hedberg",
-                        Gender.MALE,
-                        29
-                ))),
-                Station.HIGH_JUMP_I,
-                Discipline.HIGH_JUMP,
-                Trial.TRIAL,
-                AgeGroups.AgeGroup.EIGHT_AND_UNDER,
-                Gender.FEMALE
-        );
-        event2 = new Event(
-                new TimeSlot(4, 3),
+                timeSlot,
                 new ArrayList<>(List.of(new Athlete(
                         1,
                         "ÖSK",
@@ -61,18 +47,12 @@ class EventTest {
     }
 
     @Test
-    void test() {
-        //System.out.println(event.timeSlot());
-        event.timeSlot().setTimeSlot(170, 5);
-        //System.out.println(event.timeSlot());
-        System.out.println(event.timeSlot().getStartTime());
-        System.out.println(event.timeSlot().getEndTime());
-        //System.out.println(event.timeSlot().compareTo(event2.timeSlot()));
-
-
+    void testTimeSlot() {
+        assertEquals(timeSlot, event.timeSlot());
     }
 
-    /*
+
+
     @Test
     @Disabled
     void deepCopy() {
@@ -82,6 +62,4 @@ class EventTest {
     @Disabled
     void testEquals() {
     }
-
-     */
 }
