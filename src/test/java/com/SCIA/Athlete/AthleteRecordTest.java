@@ -1,12 +1,12 @@
 package com.SCIA.Athlete;
 
+import com.SCIA.Discipline.Discipline;
 import com.SCIA.Discipline.DisciplineRecords;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static com.SCIA.Discipline.Disciplines.Discipline;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AthleteRecordTest  {
@@ -20,7 +20,7 @@ class AthleteRecordTest  {
                         "ÖSK",
                         "Alexander",
                         "Hedberg",
-                        Gender.MALE,
+                        GenderGroup.MALE,
                         29
                 ),
                 new DisciplineRecords()

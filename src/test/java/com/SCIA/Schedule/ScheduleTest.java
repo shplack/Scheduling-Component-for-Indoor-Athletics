@@ -5,7 +5,6 @@ import com.SCIA.Athlete.AthleteRecord;
 import com.SCIA.CSV.CSV;
 import com.SCIA.Competitions.CompetitionGroup;
 import com.SCIA.Competitions.CompetitionGroupsMaker;
-import com.SCIA.Competitions.Trials;
 import com.SCIA.Schedule.Event.Event;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -14,8 +13,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.SCIA.Competitions.Trials.Trial.AWARD;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ScheduleTest {
 

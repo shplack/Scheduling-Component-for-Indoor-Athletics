@@ -3,6 +3,9 @@ package com.SCIA.Competitions;
 import java.util.Comparator;
 
 public class CompetitionGroupSorters {
+    /**
+     * Sort competition group by discipline, age group, and gender respectively.
+     */
     public static class DisciplineAgeGroupGender implements Comparator<CompetitionGroup> {
 
         @Override

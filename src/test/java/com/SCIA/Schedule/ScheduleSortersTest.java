@@ -2,6 +2,8 @@ package com.SCIA.Schedule;
 
 import com.SCIA.CSV.CSV;
 import com.SCIA.Competitions.CompetitionGroupsMaker;
+import com.SCIA.Schedule.ScheduleSorters.SortByTimeStationDisciplineAgeGroup;
+import com.SCIA.Schedule.ScheduleSorters.SortEventByTrialAgeGroupDiscipline;
 import com.SCIA.Schedule.ScheduleSorters.SortEventsByTrialStationAgegroup;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -18,14 +20,20 @@ class ScheduleSortersTest {
     }
 
     @Test
-    void sortEventsByStationAgeGroupTrial() {
-        schedule.eventList().sort(new SortEventsByTrialStationAgegroup());
+    void sortEventsByTrialAgeGroupDiscipline() {
+        schedule.eventList().sort(new SortEventByTrialAgeGroupDiscipline());
         schedule.eventList().forEach(System.out::println);
     }
 
     @Test
-    void sortEventsByTrialStationAgegroup() {
+    void sortEventsByTrialStationAgeGroup() {
         schedule.eventList().sort(new SortEventsByTrialStationAgegroup());
+        System.out.println(schedule);
+    }
+
+    @Test
+    void sortEventsByTimeStationDisciplineAgeGroup() {
+        schedule.eventList().sort(new SortByTimeStationDisciplineAgeGroup());
         System.out.println(schedule);
     }
 

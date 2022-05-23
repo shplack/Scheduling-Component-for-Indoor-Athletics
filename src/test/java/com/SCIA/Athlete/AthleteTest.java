@@ -3,7 +3,8 @@ package com.SCIA.Athlete;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 class AthleteTest {
 
@@ -12,7 +13,7 @@ class AthleteTest {
 
     @BeforeEach
     void setUp() {
-        athlete = new Athlete(1, "ÖFK", "Alexander", "Hedberg", Gender.MALE, 29);
+        athlete = new Athlete(1, "ÖFK", "Alexander", "Hedberg", GenderGroup.MALE, 29);
         copy = athlete.deepCopy();
     }
 
