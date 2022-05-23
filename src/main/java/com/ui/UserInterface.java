@@ -1,16 +1,15 @@
 package com.ui;
 
 import com.SCIA.CSV.CSV;
+import com.SCIA.Schedule.Event.Event;
 import com.SCIA.Schedule.Schedule;
 import com.SCIA.Schedule.ScheduleMaker;
 
-import java.io.Console;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.stream.Collectors;
 
 public class UserInterface {
     static Console console = System.console();
@@ -79,8 +78,29 @@ public class UserInterface {
         }
 
         Schedule schedule = ScheduleMaker.makeSchedule(csv);
-        try(FileWriter fileWriter = new FileWriter(output, false)) {
-            // TODO: schedule to CSV record
+        try (PrintWriter writer = new PrintWriter(output)) {
+            StringBuilder sb = new StringBuilder();
+            for (Event event : schedule.eventList())
+                    sb.append(event.timeSlot().getDay())
+                        .append(",")
+                        .append(event.timeSlot().getStartTime())
+                        .append(",")
+                        .append(event.timeSlot().getEndTime())
+                        .append(",")
+                        .append(event.discipline())
+                        .append(",")
+                        .append(event.trial())
+                        .append(",")
+                        .append(event.station())
+                        .append(",")
+                        .append(event.age_group())
+                        .append(",")
+                        .append(event.gender())
+                        .append(",")
+                        .append(event.athletes().stream().map(Athlete-> Athlete.name()+" "+Athlete.surname())
+                                .collect(Collectors.joining(",")))
+                        .append("\n");
+            writer.write(sb.toString());
         } catch (IOException e) {
             console.printf("Something unknown went wrong.");
             System.exit(-1);
