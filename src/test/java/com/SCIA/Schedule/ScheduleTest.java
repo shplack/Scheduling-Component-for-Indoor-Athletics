@@ -179,5 +179,10 @@ class ScheduleTest {
         assertTrue(conflictingEvents.isEmpty());
     }
 
+    @Test
+    void findHoles() {
+
+    }
+
 
 }

@@ -4,7 +4,6 @@ import com.SCIA.CSV.CSV;
 import com.SCIA.Schedule.Event.Event;
 import com.SCIA.Schedule.Schedule;
 import com.SCIA.Schedule.ScheduleMaker;
-import com.SCIA.Schedule.ScheduleSorters;
 
 import java.io.Console;
 import java.io.File;
@@ -112,8 +111,6 @@ public class UserInterface {
 
         // Make a schedule from the given csv file
         Schedule schedule = ScheduleMaker.makeSchedule(csv);
-        // Sort schedule by time
-        schedule.eventList().sort(new ScheduleSorters.SortByTimeStationDisciplineAgeGroup());
 
         // Writing the schedule to the csv file.
         try (PrintWriter writer = new PrintWriter(output)) {

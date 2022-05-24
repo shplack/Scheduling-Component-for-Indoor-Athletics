@@ -46,6 +46,8 @@ public class ScheduleMaker {
         eventList.addAll(EventMaker.makeTrialEvents(trialCompetitions, Trial.TRIAL));
         eventList.addAll(EventMaker.awardsCeremony(competitionGroups));
 
+        eventList.sort(new ScheduleSorters.SortByTimeStationDisciplineAgeGroup());
+
         return new Schedule(eventList);
     }
 
