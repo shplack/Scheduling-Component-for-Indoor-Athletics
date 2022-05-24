@@ -146,7 +146,7 @@ public class EventMaker {
             timeSlot = stationTimes.getOrDefault(event.station(), new TimeSlot(0, duration));
         else
             timeSlot = new TimeSlot(last_tried, duration);
-        timeSlot.setTimeSlot(timeSlot.getTimeSlot() + 1, duration); // Get the next time slot
+        timeSlot.setTimeSlot(timeSlot.getLastTimeSlot() + 1, duration); // Get the next time slot
 
         List<Event> eventsToCheck = new LinkedList<>();
         stationEvents.forEach(events -> { // get a list of possibly conflicting events

@@ -153,4 +153,31 @@ class ScheduleTest {
         assertTrue(conflictingEvents.isEmpty());
 
     }
+
+    @Test
+    void noConflictingStationTimeSlots() {
+        Map<Event, List<Event>> conflictingEvents = new HashMap<>();
+        for (int i = 0; i < schedule.eventList().size(); i++) {
+            Event event1 = schedule.eventList().get(i);
+            for (int j = i + 1; j < schedule.eventList().size(); j++) {
+                Event event2 = schedule.eventList().get(j);
+                if (event1.station() == event2.station()) {
+                    if (event1.timeSlot().compareTo(event2.timeSlot()) > 0) {
+                        if (!conflictingEvents.containsKey(event1))
+                            conflictingEvents.put(event1, new LinkedList<>());
+                        conflictingEvents.get(event1).add(event2);
+                    }
+                }
+            }
+        }
+
+        for (Map.Entry<Event, List<Event>> entry : conflictingEvents.entrySet()) {
+            System.out.println(entry.getKey());
+            entry.getValue().forEach(event -> System.out.println("\t" + event));
+        }
+
+        assertTrue(conflictingEvents.isEmpty());
+    }
+
+
 }
