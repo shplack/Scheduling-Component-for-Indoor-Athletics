@@ -162,6 +162,9 @@ public class EventMaker {
             }
         }
 
+        if (timeSlot.getDay() == 2 && event.discipline() == Discipline.MIDDLE1500M && event.trial() == Trial.SEMI_FINAL && event.station() == Station.RUNNING_TRACK && event.age_group() == AgeGroup.EIGHT_AND_UNDER)
+            System.out.print("");
+
         // if the time slot goes past the last available time slot for the day, start the time slot at the
         // first time slot the next day
         if (timeSlot.isInvalid())

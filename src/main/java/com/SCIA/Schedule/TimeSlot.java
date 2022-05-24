@@ -279,7 +279,7 @@ public class TimeSlot {
     public boolean isInvalid() {
         int day = getDay(this.timeSlot);
         int lastTimeSlot = getLastTimeSlot(day);
-        return getLastTimeSlot() > lastTimeSlot;
+        return getLastTimeSlot() >= lastTimeSlot;
     }
 
     /**
